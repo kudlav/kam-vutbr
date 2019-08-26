@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">www.kam.vutbr.cz</domain>
+        <domain includeSubdomains="false">www.stud.fit.vutbr.cz</domain>
+    </domain-config>
+</network-security-config>

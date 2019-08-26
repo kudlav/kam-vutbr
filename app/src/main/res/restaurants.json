@@ -1,0 +1,83 @@
+[
+  {
+    "id": 18,
+    "name": "Pizzerie Mozzarella",
+    "address": "Kolejní 2, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=33"
+  },{
+    "id": 19,
+    "name": "Caffe Bar Piccolo",
+    "address": "Kolejní 2, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=34"
+  },{
+    "id": 20,
+    "name": "Menza Kolejní",
+    "address": "Kolejní 2, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=35"
+  },{
+    "id": 10,
+    "name": "Menza Purkyňova",
+    "address": "Purkyňova 93, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=36"
+  },{
+    "id": 11,
+    "name": "Rychlé občerstvení Purkyňova",
+    "address": "Purkyňova 93, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=46"
+  },{
+    "id": 16,
+    "name": "Studentská jídelna FCH",
+    "address": "Purkyňova 118, Brno-Medlánky",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=43"
+  },{
+    "id": 17,
+    "name": "Zaměstnanecká jídelna FCH",
+    "address": "Purkyňova 118, Brno-Medlánky",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=44"
+  },{
+    "id": 15,
+    "name": "Bufet FCH",
+    "address": "Purkyňova 118, Brno-Medlánky",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=45"
+  },{
+    "id": 12,
+    "name": "Jídelna pro zaměstnance Q - Technická",
+    "address": "Technická 2, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=41"
+  },{
+    "id": 13,
+    "name": "Restaurace Q - Technická",
+    "address": "Technická 2, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=40"
+  },{
+    "id": 5,
+    "name": "Menza Starý pivovar",
+    "address": "Božetěchova 1, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=68"
+  },{
+    "id": 24,
+    "name": "Zaměstnanecká jídelna FEKT",
+    "address": "Technická 10, Brno-Královo Pole",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=137"
+  },{
+    "id": 25,
+    "name": "Bufet FEKT",
+    "address": "Technická 10, Brno-Královo Pole",
+    "pictureUrl": ""
+  },{
+    "id": 27,
+    "name": "Menza Rybkova",
+    "address": "Rybkova 1, Brno-Veveří",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=151"
+  },{
+    "id": 26,
+    "name": "Restaurace Rybkova",
+    "address": "Rybkova 1, Brno-Veveří",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=149"
+  },{
+    "id": 28,
+    "name": "Cukrárna Rybkova",
+    "address": "Rybkova 1, Brno-Veveří",
+    "pictureUrl": "https://www.kam.vutbr.cz//obr.aspx?id=150"
+  }
+]

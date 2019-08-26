@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="price_entries">
+        <item>Student</item>
+        <item>Zaměstnanec</item>
+        <item>Ostatní</item>
+    </string-array>
+
+    <string-array name="price_values">
+        <item>student</item>
+        <item>employee</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="lang_entries">
+        <item>Čeština</item>
+        <item>Angličtina</item>
+    </string-array>
+    <string-array name="lang_values">
+        <item>cs</item>
+        <item>en</item>
+    </string-array>
+</resources>

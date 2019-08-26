@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KaM VUT</string>
+    <string name="card_title">Číslo karty</string>
+    <string name="account">Informace o účtu</string>
+    <string name="settings">Nastavení</string>
+    <string name="title_activity_account">Účet</string>
+    <string name="title_activity_menu">Nabídka zařízení</string>
+    <string name="title_activity_settings">Nastavení</string>
+    <string name="restaurant_img">fotka zařízení</string>
+    <string name="price_category_title">Zobrazované ceny</string>
+    <string name="menu_err_network">Nabídku se nepodařilo stáhnout</string>
+    <string name="foodtype_main">Hlavní jídla</string>
+    <string name="foodtype_other">Ostatní</string>
+    <string name="foodtype_soup">Polévky</string>
+    <string name="unit_weight">g</string>
+    <string name="food_lang">Jazyk pro názvy pokrmů</string>
+    <string name="settings_category_account">Účet</string>
+    <string name="settings_category_view">Zobrazení</string>
+    <string name="err_missing_card">Nejprve prosím vyplňte číslo karty ISIC nebo VUT.</string>
+    <string name="label_ok">OK</string>
+    <string name="account_history">Historie transakcí</string>
+    <string name="account_balance">Stav konta:</string>
+    <string name="account_balance_unknown">Neznámý</string>
+    <string name="account_err_network" >Stav účtu se nepodařilo stáhnout</string>
+    <string name="help_activity_account">U standardních zaměstnaneckých a studentských karet zadejte pouze číslice bez mezer, tj. \'123456789012\'.</string>
+    <string name="btn_close">Zavřít</string>
+    <string name="restaurant_closed">Zavřeno</string>
+    <string name="restaurant_interrupt">Provoz přerušen</string>
+    <string name="restaurant_unknown">Neznámé</string>
+</resources>
