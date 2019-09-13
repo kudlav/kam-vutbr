@@ -53,7 +53,7 @@ class AccountAdapter(private val data: AccountActivity.Result): StatelessSection
                 else "?. ?."
             view.tvDescription.text = transaction.description
             view.tvAmount.text =
-                if (transaction.amount != null) "%.2f Kč".format(transaction.amount)
+                if (transaction.amount != null) "%,.2f Kč".format(transaction.amount)
                 else "? Kč"
         }
 
