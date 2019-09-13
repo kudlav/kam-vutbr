@@ -15,6 +15,7 @@ import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_menu.swipeRefreshLayout
+import org.jsoup.select.Elements
 
 
 class MenuActivity : AppCompatActivity() {
@@ -58,98 +59,115 @@ class MenuActivity : AppCompatActivity() {
 
             try {
                 Jsoup.connect(getString(R.string.url_menu) + id).get().run {
-                    select("#m$id tr").forEach { tr: Element ->
+                    val menu: Elements = select("#m$id tr")
 
-                        // Food type (MAIN/SOUP/OTHER)
-                        val td0: Element? = tr.selectFirst("td")
-                        var tmpStr: String? = td0?.ownText()
-                        val type: FoodType
-                        if (tmpStr != null && tmpStr.isNotBlank()) {
-                            type = when(tmpStr[0]) {
-                                'P' -> FoodType.SOUP
-                                'H' -> FoodType.MAIN
-                                else -> FoodType.OTHER
+                    if (menu.isEmpty()) {
+                        val msg: String? = selectFirst("#sa2 > p")?.ownText()
+                    }
+                    else {
+
+                        val ingredientsList = ArrayList<List<String>>()
+                        val regex = Regex("a\\[(\\d+)\\][^\"]*\".*?(?=<br\\/><br\\/>)<br\\/><br\\/>(.*?(?=<br\\/>\"))")
+                        regex.findAll(selectFirst("#sa2 script").html()).forEach {match: MatchResult ->
+                            val index: Int? = match.groupValues[1].toIntOrNull()
+                            if (index != null) {
+                                ingredientsList.add(match.groupValues[2].split("<br/>"))
                             }
                         }
-                        else type = FoodType.OTHER
 
-                        // Foot weight
-                        tmpStr = td0?.selectFirst("small")?.text()
-                        val weightParts: List<String>? = tmpStr?.split("/")
-                        var weight: Int? = null
-                        if (weightParts != null && weightParts.size > 1) {
+                        menu.forEachIndexed { index: Int, tr: Element ->
+
+                            // Food type (MAIN/SOUP/OTHER)
+                            val td0: Element? = tr.selectFirst("td")
+                            var tmpStr: String? = td0?.ownText()
+                            val type: FoodType
+                            if (tmpStr != null && tmpStr.isNotBlank()) {
+                                type = when (tmpStr[0]) {
+                                    'P' -> FoodType.SOUP
+                                    'H' -> FoodType.MAIN
+                                    else -> FoodType.OTHER
+                                }
+                            } else type = FoodType.OTHER
+
+                            // Foot weight
+                            tmpStr = td0?.selectFirst("small")?.text()
+                            val weightParts: List<String>? = tmpStr?.split("/")
+                            var weight: Int? = null
+                            if (weightParts != null && weightParts.size > 1) {
+                                try {
+                                    weight = weightParts[1].trim().toInt()
+                                } catch (e: NumberFormatException) {
+                                }
+                            }
+
+                            // Czech name
+                            tmpStr = tr.selectFirst(".jjjaz1jjj")?.ownText()
+                            val nameCz: String = tmpStr ?: ""
+
+                            // Allergens
+                            tmpStr = tr.selectFirst(".jjjaz1jjj small")?.text()?.trim()
+                            val allergensParts: List<String>? = tmpStr?.split(',')
+                            val allergens = ArrayList<Int>()
                             try {
-                                weight = weightParts[1].trim().toInt()
+                                allergensParts?.forEach { allergen: String ->
+                                    allergens.add(allergen.toInt())
+                                }
+                            } catch (e: Exception) {
                             }
-                            catch (e: NumberFormatException) {}
-                        }
 
-                        // Czech name
-                        tmpStr = tr.selectFirst(".jjjaz1jjj")?.ownText()
-                        val nameCz: String = tmpStr ?: ""
+                            // English name
+                            tmpStr = tr.selectFirst(".jjjaz2jjj")?.ownText()
+                            val nameEn: String = tmpStr ?: ""
 
-                        // Allergens
-                        tmpStr = tr.selectFirst(".jjjaz1jjj small")?.text()?.trim()
-                        val allergensParts: List<String>? = tmpStr?.split(',')
-                        val allergens = ArrayList<Int>()
-                        try {
-                            allergensParts?.forEach { allergen: String ->
-                                allergens.add(allergen.toInt())
+                            // Student price
+                            tmpStr = tr.selectFirst(".slcen1")?.ownText()?.replaceFirst(",-", "")
+                            var priceStudent: Int? = null
+                            if (tmpStr != null && tmpStr.isNotBlank()) {
+                                try {
+                                    priceStudent = tmpStr.toInt()
+                                } catch (e: NumberFormatException) {
+                                }
                             }
-                        }
-                        catch (e: Exception) {}
 
-                        // English name
-                        tmpStr = tr.selectFirst(".jjjaz2jjj")?.ownText()
-                        val nameEn: String = tmpStr ?: ""
-
-                        // Student price
-                        tmpStr = tr.selectFirst(".slcen1")?.ownText()?.replaceFirst(",-","")
-                        var priceStudent: Int? = null
-                        if (tmpStr != null && tmpStr.isNotBlank()) {
-                            try {
-                                priceStudent = tmpStr.toInt()
+                            // Employee price
+                            tmpStr = tr.selectFirst(".slcen2")?.ownText()?.replaceFirst(",-", "")
+                            var priceEmployee: Int? = null
+                            if (tmpStr != null && tmpStr.isNotBlank()) {
+                                try {
+                                    priceEmployee = tmpStr.toInt()
+                                } catch (e: NumberFormatException) {
+                                }
                             }
-                            catch (e: NumberFormatException) {}
-                        }
 
-                        // Employee price
-                        tmpStr = tr.selectFirst(".slcen2")?.ownText()?.replaceFirst(",-","")
-                        var priceEmployee: Int? = null
-                        if (tmpStr != null && tmpStr.isNotBlank()) {
-                            try {
-                                priceEmployee = tmpStr.toInt()
+                            // Other price
+                            tmpStr = tr.selectFirst(".slcen3")?.ownText()?.replaceFirst(",-", "")
+                            var priceOther: Int? = null
+                            if (tmpStr != null && tmpStr.isNotBlank()) {
+                                try {
+                                    priceOther = tmpStr.toInt()
+                                } catch (e: NumberFormatException) {
+                                }
                             }
-                            catch (e: NumberFormatException) {}
-                        }
 
-                        // Other price
-                        tmpStr = tr.selectFirst(".slcen3")?.ownText()?.replaceFirst(",-","")
-                        var priceOther: Int? = null
-                        if (tmpStr != null && tmpStr.isNotBlank()) {
-                            try {
-                                priceOther = tmpStr.toInt()
+                            // Create Food object
+                            val food = Food(
+                                type,
+                                weight,
+                                nameCz,
+                                nameEn,
+                                allergens,
+                                ingredientsList.getOrElse(index) { listOf() },
+                                priceStudent,
+                                priceEmployee,
+                                priceOther
+                            )
+
+                            // Save into array
+                            when (type) {
+                                FoodType.SOUP -> result[0].add(food)
+                                FoodType.MAIN -> result[1].add(food)
+                                FoodType.OTHER -> result[2].add(food)
                             }
-                            catch (e: NumberFormatException) {}
-                        }
-
-                        // Create Food object
-                        val food = Food(
-                            type,
-                            weight,
-                            nameCz,
-                            nameEn,
-                            allergens,
-                            priceStudent,
-                            priceEmployee,
-                            priceOther
-                        )
-
-                        // Save into array
-                        when(type) {
-                            FoodType.SOUP -> result[0].add(food)
-                            FoodType.MAIN -> result[1].add(food)
-                            FoodType.OTHER -> result[2].add(food)
                         }
                     }
                 }

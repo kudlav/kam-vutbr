@@ -1,18 +1,20 @@
 package com.kudlav.kam.adapters
 
-import android.content.DialogInterface
 import android.content.SharedPreferences
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kudlav.kam.R
 import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
 import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection
 import kotlinx.android.synthetic.main.item_menu.view.*
 import kotlinx.android.synthetic.main.header_menu.view.*
+import android.view.LayoutInflater
+import com.kudlav.kam.R
+import kotlinx.android.synthetic.main.dialog_food.view.*
+
 
 class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): StatelessSection(
     SectionParameters.builder()
@@ -68,17 +70,20 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
                 else "? Kč"
 
             view.setOnClickListener{
+
                 val dialogBuilder = AlertDialog.Builder(view.context)
-                dialogBuilder.setMessage("Do you want to close this application ?")
                     .setPositiveButton(view.context.getString(R.string.btn_close)) {
                             dialog, _ -> dialog.dismiss()
                     }
+                //    .setView(R.layout.dialog_food)
 
-                // create dialog box
+                val inflater = LayoutInflater.from(this.view.context)
+                val dialogView = inflater.inflate(R.layout.dialog_food, null)
+                dialogView.lvIngredients.adapter = IngredientsAdapter(view.context, data.ingredients)
+                dialogBuilder.setView(dialogView)
+
                 val alert = dialogBuilder.create()
-                // set title for alert dialog box
-                alert.setTitle("AlertDialogExample")
-                // show alert dialog
+                alert.setTitle(view.tvName.text)
                 alert.show()
             }
         }

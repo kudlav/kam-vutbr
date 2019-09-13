@@ -28,4 +28,5 @@
     <string name="restaurant_closed">Zavřeno</string>
     <string name="restaurant_interrupt">Provoz přerušen</string>
     <string name="restaurant_unknown">Neznámé</string>
+    <string name="ingredients">Složení</string>
 </resources>

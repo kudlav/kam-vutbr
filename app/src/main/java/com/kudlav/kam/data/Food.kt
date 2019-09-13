@@ -6,6 +6,7 @@ data class Food(
     val nameCz: String,
     val nameEn: String,
     val allergens: ArrayList<Int>,
+    val ingredients: List<String>,
     val priceStudent: Int?,
     val priceEmployee :Int?,
     val priceOther :Int?
