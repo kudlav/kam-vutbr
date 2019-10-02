@@ -16,7 +16,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 import kotlinx.android.synthetic.main.activity_account.*
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
-import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -84,7 +83,7 @@ class AccountActivity : AppCompatActivity() {
 
                             if (tables.size == 2) {
                                 // Transaction history
-                                val df: DateFormat = SimpleDateFormat("d. M. yyy kk:mm:ss")
+                                val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
                                 val tr: Elements = tables[1].getElementsByTag("tr")
 
                                 for (i: Int in 1 until tr.size) {
@@ -115,7 +114,7 @@ class AccountActivity : AppCompatActivity() {
                 cancel(false)
             }
             finally {
-                return Result(error, balance, history)
+                return Result(error, balance, history.reversed())
             }
         }
 
@@ -141,6 +140,6 @@ class AccountActivity : AppCompatActivity() {
     data class Result(
         val error: String?,
         val balance: Double?,
-        val history: ArrayList<Transaction>
+        val history: List<Transaction>
     )
 }
