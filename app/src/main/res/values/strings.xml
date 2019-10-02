@@ -4,7 +4,7 @@
     <string name="restaurant_img">restaurant photo</string>
     <string name="account">Account info</string>
     <string name="settings">Settings</string>
-    <string name="menu_err_network">Unable to download menu</string>
+    <string name="menu_err_nothing">No food on the menu</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_menu">Facility Menu</string>
     <string name="title_activity_account">Account</string>

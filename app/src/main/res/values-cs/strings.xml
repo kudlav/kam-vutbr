@@ -9,7 +9,7 @@
     <string name="title_activity_settings">Nastavení</string>
     <string name="restaurant_img">fotka zařízení</string>
     <string name="price_category_title">Zobrazované ceny</string>
-    <string name="menu_err_network">Nabídku se nepodařilo stáhnout</string>
+    <string name="menu_err_nothing">Žádné jídlo v nabídce</string>
     <string name="foodtype_main">Hlavní jídla</string>
     <string name="foodtype_other">Ostatní</string>
     <string name="foodtype_soup">Polévky</string>

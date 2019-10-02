@@ -15,23 +15,24 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/tvEmpty"
+            android:id="@+id/llError"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:visibility="gone">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 app:srcCompat="@drawable/ic_pizza_black" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/menu_err_network"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

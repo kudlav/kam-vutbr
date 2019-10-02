@@ -36,33 +36,29 @@ class MenuActivity : AppCompatActivity() {
         DownloadMenu().execute(restaurantId)
 
         swipeRefreshLayout.setOnRefreshListener {
-            tvEmpty.visibility = View.GONE
+            llError.visibility = View.GONE
             DownloadMenu().execute(restaurantId)
         }
     }
 
-    inner class DownloadMenu: AsyncTask<Int, Int, List<ArrayList<Food>>>() {
+    inner class DownloadMenu: AsyncTask<Int, Int, Result>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
             swipeRefreshLayout.isRefreshing = true
         }
 
-        override fun doInBackground(vararg params: Int?): List<ArrayList<Food>> {
+        override fun doInBackground(vararg params: Int?): Result {
             val id: Int? = params[0]
 
-            val result = listOf(
-                ArrayList<Food>(), // soup
-                ArrayList<Food>(), // main
-                ArrayList<Food>() // other
-            )
+            val result = Result(ArrayList(), ArrayList(), ArrayList(), null)
 
             try {
                 Jsoup.connect(getString(R.string.url_menu) + id).get().run {
                     val menu: Elements = select("#m$id tr")
 
                     if (menu.isEmpty()) {
-                        val msg: String? = selectFirst("#sa2 > p")?.ownText()
+                        result.error = selectFirst("#sa2 > p")?.ownText()
                     }
                     else {
 
@@ -112,8 +108,7 @@ class MenuActivity : AppCompatActivity() {
                                 allergensParts?.forEach { allergen: String ->
                                     allergens.add(allergen.toInt())
                                 }
-                            } catch (e: Exception) {
-                            }
+                            } catch (e: Exception) { }
 
                             // English name
                             tmpStr = tr.selectFirst(".jjjaz2jjj")?.ownText()
@@ -164,33 +159,38 @@ class MenuActivity : AppCompatActivity() {
 
                             // Save into array
                             when (type) {
-                                FoodType.SOUP -> result[0].add(food)
-                                FoodType.MAIN -> result[1].add(food)
-                                FoodType.OTHER -> result[2].add(food)
+                                FoodType.SOUP -> result.soup.add(food)
+                                FoodType.MAIN -> result.main.add(food)
+                                FoodType.OTHER -> result.other.add(food)
                             }
                         }
                     }
                 }
             }
             catch (e: Exception) {
+                result.error = e.message
                 cancel(false)
-                return result
             }
 
             return result
         }
 
-        override fun onPostExecute(result: List<ArrayList<Food>>) {
+        override fun onPostExecute(result: Result) {
             super.onPostExecute(result)
             swipeRefreshLayout.isRefreshing = false
 
             val adapter = SectionedRecyclerViewAdapter()
-            if (result[0].isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.SOUP, result[0]))
-            if (result[1].isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.MAIN, result[1]))
-            if (result[2].isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.OTHER, result[2]))
+            if (result.soup.isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.SOUP, result.soup))
+            if (result.main.isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.MAIN, result.main))
+            if (result.other.isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.OTHER, result.other))
 
-            if (result[0].isEmpty() && result[1].isEmpty() && result[2].isEmpty()) {
-                tvEmpty.visibility = View.VISIBLE
+            if (result.error != null) {
+                llError.visibility = View.VISIBLE
+                tvError.text = result.error
+            }
+            else if (result.soup.isEmpty() && result.main.isEmpty() && result.other.isEmpty()) {
+                llError.visibility = View.VISIBLE
+                tvError.text = getString(R.string.menu_err_nothing)
             }
             else {
                 menuView.visibility = View.VISIBLE
@@ -199,14 +199,22 @@ class MenuActivity : AppCompatActivity() {
             menuView.adapter = adapter
         }
 
-        override fun onCancelled(result: List<ArrayList<Food>>) {
+        override fun onCancelled(result: Result) {
             super.onCancelled(result)
             swipeRefreshLayout.isRefreshing = false
 
-            tvEmpty.visibility = View.VISIBLE
+            llError.visibility = View.VISIBLE
+            tvError.text = result.error
             menuView.visibility = View.GONE
         }
 
     }
+
+    data class Result(
+        val soup: ArrayList<Food>,
+        val main: ArrayList<Food>,
+        val other: ArrayList<Food>,
+        var error: String?
+    )
 
 }
