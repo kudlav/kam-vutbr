@@ -42,7 +42,7 @@ class AccountActivity : AppCompatActivity() {
         else {
             val missingCardDialog = AlertDialog.Builder(this)
             missingCardDialog.setMessage(getString(R.string.err_missing_card))
-                .setPositiveButton(R.string.label_ok) { dialog, id ->
+                .setPositiveButton(R.string.label_ok) { _, _ ->
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                 }
