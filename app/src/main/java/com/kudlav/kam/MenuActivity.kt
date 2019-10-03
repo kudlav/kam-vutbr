@@ -63,11 +63,11 @@ class MenuActivity : AppCompatActivity() {
                     else {
 
                         val ingredientsList = ArrayList<List<String>>()
-                        val regex = Regex("a\\[(\\d+)\\][^\"]*\".*?(?=<br\\/><br\\/>)<br\\/><br\\/>(.*?(?=<br\\/>\"))")
+                        val regex = Regex("a\\[(\\d+)\\][^\"]*\"([^\"]*)")
                         regex.findAll(selectFirst("#sa2 script").html()).forEach {match: MatchResult ->
-                            val index: Int? = match.groupValues[1].toIntOrNull()
-                            if (index != null) {
-                                ingredientsList.add(match.groupValues[2].split("<br/>"))
+                            if (match.groupValues.size == 3) {
+                                val ingredients: List<String> = match.groupValues[2].split("<br/>")
+                                ingredientsList.add(ingredients.subList(2, ingredients.size - 1))
                             }
                         }
 
