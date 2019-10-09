@@ -32,7 +32,7 @@ class AccountActivity : AppCompatActivity() {
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val cardNo: String? = sharedPreferences.getString("card_number", null)
 
-        if (cardNo != null) {
+        if (cardNo != null && cardNo != "") {
             DownloadInfo().execute(cardNo)
 
             swipeRefreshLayout.setOnRefreshListener {
@@ -44,10 +44,18 @@ class AccountActivity : AppCompatActivity() {
             missingCardDialog.setMessage(getString(R.string.err_missing_card))
                 .setPositiveButton(R.string.label_ok) { _, _ ->
                     val intent = Intent(this, SettingsActivity::class.java)
-                    startActivity(intent)
+                    startActivityForResult(intent, 0)
                 }
                 .show()
         }
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val cardNo: String? = sharedPreferences.getString("card_number", null)
+        DownloadInfo().execute(cardNo)
     }
 
     inner class DownloadInfo: AsyncTask<String, Int?, Result>() {

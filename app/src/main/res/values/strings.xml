@@ -8,7 +8,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_menu">Facility Menu</string>
     <string name="title_activity_account">Account</string>
-    <string name="card_title">Card number</string>
+    <string name="card_title">ISIC or VUT Card number</string>
     <string name="price_category_title">Show prices for</string>
     <string name="foodtype_main">Main meals</string>
     <string name="foodtype_soup">Soups</string>
@@ -23,7 +23,6 @@
     <string name="account_balance">Account balance:</string>
     <string name="account_balance_unknown">Unknown</string>
     <string name="account_err_network" >Unable to download account info</string>
-    <string name="help_activity_account">If you have standard employee or student card, enter unly digits without spaces, e.g. \'123456789012\'.</string>
     <string name="btn_close">Close</string>
     <string name="restaurant_closed">Closed</string>
     <string name="restaurant_interrupt">Interrupted</string>

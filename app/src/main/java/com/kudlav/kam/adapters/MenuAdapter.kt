@@ -15,7 +15,6 @@ import android.view.LayoutInflater
 import com.kudlav.kam.R
 import kotlinx.android.synthetic.main.dialog_food.view.*
 
-
 class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): StatelessSection(
     SectionParameters.builder()
         .itemResourceId(R.layout.item_menu)

@@ -17,7 +17,6 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapt
 import kotlinx.android.synthetic.main.activity_menu.swipeRefreshLayout
 import org.jsoup.select.Elements
 
-
 class MenuActivity : AppCompatActivity() {
 
     private var restaurantId: Int = -1

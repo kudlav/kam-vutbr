@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KaM VUT</string>
-    <string name="card_title">Číslo karty</string>
+    <string name="card_title">Číslo ISIC nebo VUT karty</string>
     <string name="account">Informace o účtu</string>
     <string name="settings">Nastavení</string>
     <string name="title_activity_account">Účet</string>
@@ -23,7 +23,6 @@
     <string name="account_balance">Stav konta:</string>
     <string name="account_balance_unknown">Neznámý</string>
     <string name="account_err_network" >Stav účtu se nepodařilo stáhnout</string>
-    <string name="help_activity_account">U standardních zaměstnaneckých a studentských karet zadejte pouze číslice bez mezer, tj. \'123456789012\'.</string>
     <string name="btn_close">Zavřít</string>
     <string name="restaurant_closed">Zavřeno</string>
     <string name="restaurant_interrupt">Provoz přerušen</string>
