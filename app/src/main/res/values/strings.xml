@@ -27,6 +27,7 @@
     <string name="btn_close">Close</string>
     <string name="restaurant_closed">Closed</string>
     <string name="restaurant_interrupt">Interrupted</string>
-    <string name="restaurant_unknown">Unknown</string>
+    <string name="restaurant_unavailable">Without current menu</string>
+    <string name="restaurant_available">Current menu</string>
     <string name="ingredients">Ingredients</string>
 </resources>

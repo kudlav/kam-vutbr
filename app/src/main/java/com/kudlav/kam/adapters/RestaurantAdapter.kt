@@ -48,19 +48,18 @@ class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Ad
                     view.ivOpen.setColorFilter(Color.GRAY)
                 }
                 'n' -> {
-                    view.tvOpen.text = "Nabídka nezveřejněna"
+                    view.tvOpen.text = view.context.getString(R.string.restaurant_unavailable)
                     view.tvOpen.setTextColor(Color.parseColor("#f9a825"))
                     view.tvOpen.setTypeface(null, Typeface.NORMAL)
                     view.ivOpen.setColorFilter(Color.parseColor("#f9a825"))
                 }
                 'm' -> {
-                    view.tvOpen.text = "Nabídka zveřejněna"
+                    view.tvOpen.text = view.context.getString(R.string.restaurant_available)
                     view.tvOpen.setTextColor(Color.parseColor("#4caf50"))
                     view.tvOpen.setTypeface(null, Typeface.BOLD)
                     view.ivOpen.setColorFilter(Color.parseColor("#4caf50"))
                 }
                 else -> {
-                    //view.tvOpen.text = view.context.getString(R.string.restaurant_unknown)
                     view.tvOpen.text = data.state.toString()
                     view.tvOpen.setTypeface(null, Typeface.NORMAL)
                 }
