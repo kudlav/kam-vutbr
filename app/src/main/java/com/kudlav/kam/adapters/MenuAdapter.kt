@@ -74,7 +74,6 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
                     .setPositiveButton(view.context.getString(R.string.btn_close)) {
                             dialog, _ -> dialog.dismiss()
                     }
-                //    .setView(R.layout.dialog_food)
 
                 val inflater = LayoutInflater.from(this.view.context)
                 val dialogView = inflater.inflate(R.layout.dialog_food, null)
