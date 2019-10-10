@@ -21,4 +21,17 @@
         <item>cs</item>
         <item>en</item>
     </string-array>
+
+    <string-array name="theme_entries">
+        <item>Světlý</item>
+        <item>Tmavý</item>
+        <item>Nastavený spořičem baterie</item>
+        <item>Podle systému</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>MODE_NIGHT_NO</item>
+        <item>MODE_NIGHT_YES</item>
+        <item>MODE_NIGHT_AUTO_BATTERY</item>
+        <item>MODE_NIGHT_FOLLOW_SYSTEM</item>
+    </string-array>
 </resources>

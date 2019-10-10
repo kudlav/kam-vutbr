@@ -46,6 +46,14 @@
         app:title="@string/food_lang"
         app:useSimpleSummaryProvider="true" />
 
+    <ListPreference
+        app:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
+        app:entries="@array/theme_entries"
+        app:entryValues="@array/theme_values"
+        app:key="theme"
+        app:title="@string/theme"
+        app:useSimpleSummaryProvider="true" />
+
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>

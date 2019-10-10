@@ -12,7 +12,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="2dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/redText"
         android:textSize="16sp"
         android:textStyle="bold" />
 

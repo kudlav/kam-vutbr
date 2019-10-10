@@ -9,7 +9,7 @@
         android:text="\u2022"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/redText"
         android:textStyle="bold" />
 
     <TextView

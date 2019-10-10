@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/account_balance"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="@color/primaryText"
             android:textStyle="bold" />
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/primary_text_light"
+            android:textColor="@color/primaryText"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:text="@string/account_history"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/redText"
         android:textSize="16sp"
         android:textStyle="bold" />
 

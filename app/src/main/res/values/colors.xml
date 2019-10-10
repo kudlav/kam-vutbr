@@ -5,4 +5,6 @@
     <color name="colorAccent">#B40020</color>
     <color name="colorIcon">#A0A0A0</color>
     <color name="colorShadow">#E6E6E6</color>
+    <color name="primaryText">#000000</color>
+    <color name="redText">#B40020</color>
 </resources>

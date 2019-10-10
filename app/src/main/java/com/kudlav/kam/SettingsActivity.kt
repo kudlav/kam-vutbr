@@ -2,7 +2,9 @@ package com.kudlav.kam
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
 
@@ -30,6 +32,20 @@ class SettingsActivity : AppCompatActivity() {
                 val newValue: String = Regex("\\D").replace(value.toString(), "")
                 cardNumber?.text = newValue
                 false
+            }
+
+            val theme: ListPreference? = preferenceScreen.findPreference("theme")
+
+            theme?.onPreferenceChangeListener = OnPreferenceChangeListener { _, value ->
+                AppCompatDelegate.setDefaultNightMode(
+                    when(value) {
+                        "MODE_NIGHT_NO" -> AppCompatDelegate.MODE_NIGHT_NO
+                        "MODE_NIGHT_YES" -> AppCompatDelegate.MODE_NIGHT_YES
+                        "MODE_NIGHT_AUTO_BATTERY" -> AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    }
+                )
+                true
             }
         }
     }

@@ -12,7 +12,7 @@
         android:layout_marginTop="6dp"
         android:text="@string/ingredients"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/redText"
         android:textSize="16sp"
         android:textStyle="bold" />
 

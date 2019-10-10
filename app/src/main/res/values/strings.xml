@@ -29,4 +29,5 @@
     <string name="restaurant_unavailable">Without current menu</string>
     <string name="restaurant_available">Current menu</string>
     <string name="ingredients">Ingredients</string>
+    <string name="theme">Theme</string>
 </resources>

@@ -35,6 +35,6 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical|end"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textColor="@color/redText" />
 
 </LinearLayout>
