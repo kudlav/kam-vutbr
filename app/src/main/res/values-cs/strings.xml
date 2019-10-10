@@ -31,4 +31,13 @@
     <string name="ingredients">Složení</string>
     <string name="currency">Kč</string>
     <string name="theme">Motiv</string>
+    <string name="about">O aplikaci</string>
+    <string name="title_activity_about">O aplikaci</string>
+    <string name="version">Verze: %s</string>
+    <string name="url_github">https://github.com/kudlav/kam-vutbr</string>
+    <string name="author">Autor</string>
+    <string name="copyright">© 2019 Vladan Kudláč</string>
+    <string name="contact_email">vladankudlac@gmail.com</string>
+    <string name="privacy_title">Ochrana soukromí</string>
+    <string name="privacy_content">Číslo karty je uloženo v zařízení a přenášeno nešifrovaně na server www.kam.vutbr.cz. V rámci záloh vašeho systému může být uloženo na servery Google. Aplikace nezíská informace o majiteli účtu.</string>
 </resources>

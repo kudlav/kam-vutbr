@@ -47,4 +47,5 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.12.1'
     implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:2.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
