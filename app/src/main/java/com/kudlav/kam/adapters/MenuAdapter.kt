@@ -63,10 +63,10 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
             view.tvName.text = if (lang == "en") data.nameEn else data.nameCz
             view.tvWeight.text =
                 if (data.weight != null) "%d %s".format(data.weight, view.context.getString(R.string.unit_weight))
-                else "? ${view.context.getString(R.string.unit_weight)}"
+                else ""
             view.tvPrice.text =
-                if (price != null) "%d Kč".format(price)
-                else "? Kč"
+                if (price != null) "%d %s".format(price, view.context.getString(R.string.currency))
+                else "? ${view.context.getString(R.string.currency)}"
 
             view.setOnClickListener{
 

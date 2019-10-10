@@ -53,8 +53,8 @@ class AccountAdapter(private val data: AccountActivity.Result): StatelessSection
                 else "?. ?."
             view.tvDescription.text = transaction.description
             view.tvAmount.text =
-                if (transaction.amount != null) "%,.2f Kč".format(transaction.amount)
-                else "? Kč"
+                if (transaction.amount != null) "%,.2f %s".format(transaction.amount, view.context.getString(R.string.currency))
+                else "? ${view.context.getString(R.string.currency)}"
         }
 
     }
@@ -63,7 +63,7 @@ class AccountAdapter(private val data: AccountActivity.Result): StatelessSection
 
         fun bind() {
             view.tvBalance.text =
-                if (data.balance != null) "%.2f Kč".format(data.balance)
+                if (data.balance != null) "%.2f %s".format(data.balance, view.context.getString(R.string.currency))
                 else view.context.getString(R.string.account_balance_unknown)
         }
 

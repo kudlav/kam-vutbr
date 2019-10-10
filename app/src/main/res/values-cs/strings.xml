@@ -29,5 +29,6 @@
     <string name="restaurant_unavailable">Nabídka nezveřejněna</string>
     <string name="restaurant_available">Nabídka zveřejněna</string>
     <string name="ingredients">Složení</string>
+    <string name="currency">Kč</string>
     <string name="theme">Motiv</string>
 </resources>
