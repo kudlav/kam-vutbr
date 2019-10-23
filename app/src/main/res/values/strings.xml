@@ -40,4 +40,5 @@
     <string name="contact_email">vladankudlac@gmail.com</string>
     <string name="privacy_title">Privacy policy</string>
     <string name="privacy_content">Card number is stored in your device and transmitted to the www.kam.vutbr.cz using unsecured connection. It can be saved to Google servers as a backup of your system. The app does not get account owner information.</string>
+    <string name="favorite">Favorite</string>
 </resources>

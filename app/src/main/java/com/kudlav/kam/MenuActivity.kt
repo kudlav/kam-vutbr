@@ -1,9 +1,14 @@
 package com.kudlav.kam
 
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.kudlav.kam.data.Restaurant
 import com.kudlav.kam.data.RestaurantDatabase
 import org.jsoup.Jsoup
@@ -37,6 +42,48 @@ class MenuActivity : AppCompatActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             llError.visibility = View.GONE
             DownloadMenu().execute(restaurantId)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.restaurant_navigation, menu)
+
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val favorites: String = sharedPreferences.getString("favorite", "") ?: ""
+        if (favorites.split(',').contains(restaurantId.toString())) {
+            menu.findItem(R.id.favorite).icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_full_white)
+        }
+        else {
+            menu.findItem(R.id.favorite).icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_empty_white)
+        }
+
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.favorite -> {
+                val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+                val favorites: String = sharedPreferences.getString("favorite", "") ?: ""
+                val favoritesList = ArrayList<String>(favorites.split(','))
+
+                if (favoritesList.contains(restaurantId.toString())) {
+                    favoritesList.remove(restaurantId.toString())
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_empty_white)
+                }
+                else {
+                    favoritesList.add(restaurantId.toString())
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_full_white)
+                }
+
+                sharedPreferences.edit()
+                    .putString("favorite", favoritesList.joinToString(","))
+                    .apply()
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
