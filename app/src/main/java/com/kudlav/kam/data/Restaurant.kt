@@ -6,5 +6,6 @@ data class Restaurant(
     var address: String,
     var pictureUrl: String,
     var openingHours: String = "",
-    var state: Char = '?'
+    var state: Char = '?',
+    var favorite: Boolean = false
 )

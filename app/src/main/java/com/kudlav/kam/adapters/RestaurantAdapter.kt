@@ -1,5 +1,6 @@
 package com.kudlav.kam.adapters
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -34,7 +35,7 @@ class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Ad
         fun bind() {
             val data = itemList[adapterPosition]
             view.tvName.text = data.name
-            when(data.state) {
+            when (data.state) {
                 'z' -> {
                     view.tvOpen.text = view.context.getString(R.string.restaurant_closed)
                     view.tvOpen.setTextColor(Color.parseColor("#B40020"))
@@ -69,14 +70,22 @@ class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Ad
                 val intent = Intent(view.context, MenuActivity::class.java).apply {
                     putExtra("id", data.id)
                 }
-                view.context.startActivity(intent)
+                (view.context as Activity).startActivityForResult(intent, 0)
             }
 
-            Glide.with(view)
-                .load(data.pictureUrl)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.mipmap.ic_launcher_round)
-                .into(view.ivRestaurantImg)
+            if (data.favorite) {
+                Glide.with(view)
+                    .load("")
+                    .placeholder(R.drawable.favorite)
+                    .into(view.ivRestaurantImg)
+            }
+            else {
+                Glide.with(view)
+                    .load(data.pictureUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.mipmap.ic_launcher_round)
+                    .into(view.ivRestaurantImg)
+            }
         }
     }
 }

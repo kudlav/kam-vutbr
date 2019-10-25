@@ -1,12 +1,15 @@
 package com.kudlav.kam
 
+import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.adapters.RestaurantAdapter
 import com.kudlav.kam.data.Restaurant
@@ -23,16 +26,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // load data
-        restaurantList = RestaurantDatabase.getAllRestaurants(applicationContext)
+        loadData()
 
         restaurantView.layoutManager = LinearLayoutManager(this)
         restaurantView.adapter = RestaurantAdapter(restaurantList)
 
-        DownloadOpeningHours().execute(restaurantList)
-
         swipeRefreshLayout.setOnRefreshListener {
             DownloadOpeningHours().execute(restaurantList)
+        }
+    }
+
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            loadData()
+            restaurantView.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -58,6 +67,28 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun loadData() {
+        val restaurantsUnsorted = RestaurantDatabase.getAllRestaurants(applicationContext)
+
+        val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val favorites: String = sharedPreferences.getString("favorite", "") ?: ""
+        val favoritesList: List<String> = favorites.split(',')
+        restaurantList.clear()
+
+        restaurantsUnsorted.forEach {restaurant: Restaurant ->
+            if (favoritesList.contains(restaurant.id.toString())) {
+                restaurant.favorite = true
+                restaurantList.add(0, restaurant) // Push on the top
+            }
+            else {
+                restaurant.favorite = false
+                restaurantList.add(restaurant) // Push to the end
+            }
+        }
+
+        DownloadOpeningHours().execute(restaurantList)
     }
 
 

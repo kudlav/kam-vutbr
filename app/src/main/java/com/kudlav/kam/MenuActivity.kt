@@ -29,6 +29,7 @@ class MenuActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+        setResult(RESULT_CANCELED, null)
 
         // load data
         restaurantId = intent.getIntExtra("id", -1)
@@ -60,6 +61,11 @@ class MenuActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
@@ -80,6 +86,8 @@ class MenuActivity : AppCompatActivity() {
                 sharedPreferences.edit()
                     .putString("favorite", favoritesList.joinToString(","))
                     .apply()
+
+                setResult(RESULT_OK, null)
 
                 true
             }
