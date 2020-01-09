@@ -29,27 +29,34 @@
     <PreferenceCategory app:title="@string/settings_category_view">
 
     <ListPreference
+        app:key="price_category"
+        app:title="@string/price_category_title"
         app:defaultValue="student"
         app:entries="@array/price_entries"
         app:entryValues="@array/price_values"
-        app:key="price_category"
-        app:title="@string/price_category_title"
         app:useSimpleSummaryProvider="true" />
 
     <ListPreference
+        app:key="food_lang"
+        app:title="@string/food_lang"
         app:defaultValue="cs"
         app:entries="@array/lang_entries"
         app:entryValues="@array/lang_values"
-        app:key="food_lang"
-        app:title="@string/food_lang"
         app:useSimpleSummaryProvider="true" />
 
+    <MultiSelectListPreference
+        app:key="allergens"
+        app:title="@string/display_allergens"
+        app:defaultValue="@array/allergen_default"
+        app:entries="@array/allergen_entries"
+        app:entryValues="@array/allergen_values" />
+
     <ListPreference
+        app:key="theme"
+        app:title="@string/theme"
         app:defaultValue="MODE_NIGHT_FOLLOW_SYSTEM"
         app:entries="@array/theme_entries"
         app:entryValues="@array/theme_values"
-        app:key="theme"
-        app:title="@string/theme"
         app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

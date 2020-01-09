@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.header_menu.view.*
 import android.view.LayoutInflater
 import com.kudlav.kam.R
 import kotlinx.android.synthetic.main.dialog_food.view.*
+import java.lang.Exception
 
 class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): StatelessSection(
     SectionParameters.builder()
@@ -48,10 +49,13 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
 
     inner class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
+        private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
+        private val lang: String? = preferences.getString("food_lang", "cs")
+        private val priceCategory: String? = preferences.getString("price_category", "cs")
+        private val allergenChosen: Set<String>? = preferences.getStringSet("allergens", null)
+        private val allergenNames = view.context.resources.getStringArray(R.array.allergen_entries)
+
         fun bind(position: Int) {
-            val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
-            val lang: String? = preferences.getString("food_lang", "cs")
-            val priceCategory: String? = preferences.getString("price_category", "cs")
 
             val data = itemList[position]
             val price: Int? = when(priceCategory) {
@@ -64,6 +68,17 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
             view.tvWeight.text =
                 if (data.weight != null) "%d %s".format(data.weight, view.context.getString(R.string.unit_weight))
                 else ""
+            val allergens: ArrayList<String> = ArrayList()
+            try {
+                allergenChosen?.forEach { item: String ->
+                    if (data.allergens.contains(item.toInt())) {
+                        allergens.add(allergenNames[item.toInt()-1])
+                    }
+                }
+            } catch (e: Exception) {
+            }
+            view.tvAllergens.text = allergens.joinToString()
+
             view.tvPrice.text =
                 if (price != null) "%d %s".format(price, view.context.getString(R.string.currency))
                 else "? ${view.context.getString(R.string.currency)}"

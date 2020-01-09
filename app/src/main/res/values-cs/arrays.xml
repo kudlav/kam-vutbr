@@ -1,25 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Reply Preference -->
     <string-array name="price_entries">
         <item>Student</item>
         <item>Zaměstnanec</item>
         <item>Ostatní</item>
     </string-array>
 
-    <string-array name="price_values">
-        <item>student</item>
-        <item>employee</item>
-        <item>Other</item>
-    </string-array>
-
     <string-array name="lang_entries">
         <item>Čeština</item>
         <item>Angličtina</item>
-    </string-array>
-    <string-array name="lang_values">
-        <item>cs</item>
-        <item>en</item>
     </string-array>
 
     <string-array name="theme_entries">
@@ -28,10 +17,21 @@
         <item>Nastavený spořičem baterie</item>
         <item>Podle systému</item>
     </string-array>
-    <string-array name="theme_values">
-        <item>MODE_NIGHT_NO</item>
-        <item>MODE_NIGHT_YES</item>
-        <item>MODE_NIGHT_AUTO_BATTERY</item>
-        <item>MODE_NIGHT_FOLLOW_SYSTEM</item>
+
+    <string-array name="allergen_entries">
+        <item>Lepek</item>
+        <item>Korýši</item>
+        <item>Vejce</item>
+        <item>Ryby</item>
+        <item>Arašídy</item>
+        <item>Sója</item>
+        <item>Mléko</item>
+        <item>Ořechy</item>
+        <item>Celer</item>
+        <item>Hořčice</item>
+        <item>Sezam</item>
+        <item>Oxid siřičitý</item>
+        <item>Vlčí bob</item>
+        <item>Měkkýši</item>
     </string-array>
 </resources>

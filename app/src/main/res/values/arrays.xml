@@ -32,4 +32,38 @@
         <item>MODE_NIGHT_AUTO_BATTERY</item>
         <item>MODE_NIGHT_FOLLOW_SYSTEM</item>
     </string-array>
+
+    <string-array name="allergen_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
+    <string-array name="allergen_entries">
+        <item>Gluten</item>
+        <item>Crustaceans</item>
+        <item>Eggs</item>
+        <item>Fish</item>
+        <item>Peanuts</item>
+        <item>Soybeans</item>
+        <item>Milk</item>
+        <item>Nuts</item>
+        <item>Celery</item>
+        <item>Mustard</item>
+        <item>Sesame seeds</item>
+        <item>Sulphur dioxide and sulphites</item>
+        <item>Lupin</item>
+        <item>Molluscs</item>
+    </string-array>
+    <string-array name="allergen_default" />
 </resources>
