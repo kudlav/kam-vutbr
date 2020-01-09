@@ -67,9 +67,7 @@ class AccountActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg params: String): Result {
 
-            var error: String? = null
-            var balance: Double? = null
-            val history: ArrayList<Transaction> = ArrayList()
+            val result = Result(null, null, ArrayList())
 
             try {
                 Jsoup.connect(getString(R.string.url_account))
@@ -80,50 +78,51 @@ class AccountActivity : AppCompatActivity() {
 
                         val tables: Elements = select("#sa2 form table")
 
-                        if (tables.size > 0) {
+                        if (tables.size == 2) {
 
                             // Account balance
-                            balance = tables[0].selectFirst("tr:nth-child(4) td:nth-child(2)")
+                            result.balance = tables[0].selectFirst("tr:nth-child(4) td:nth-child(2)")
                                 ?.ownText()
                                 ?.replaceFirst(" Kč", "")
                                 ?.replaceFirst(",", ".")
                                 ?.toDoubleOrNull()
 
-                            if (tables.size == 2) {
-                                // Transaction history
-                                val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
-                                val tr: Elements = tables[1].getElementsByTag("tr")
+                            // Transaction history
+                            val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
+                            val tr: Elements = tables[1].getElementsByTag("tr")
 
-                                for (i: Int in 1 until tr.size) {
-                                    val td: Elements = tr[i].getElementsByTag("td")
-                                    if (td.size != 3) continue
+                            for (i: Int in 1 until tr.size) {
+                                val td: Elements = tr[i].getElementsByTag("td")
+                                if (td.size != 3) continue
 
-                                    var time: Date? = null
-                                    try {
-                                        time = df.parse(td[0].ownText())
-                                    } catch (e: ParseException) {
-                                    }
-
-                                    val desc: String = td[1].ownText()
-
-                                    val amount: Double? = td[2].ownText()
-                                        .replaceFirst(",", ".")
-                                        .toDoubleOrNull()
-
-                                    history.add(Transaction(time, desc, amount))
+                                var time: Date? = null
+                                try {
+                                    time = df.parse(td[0].ownText())
+                                } catch (e: ParseException) {
                                 }
+
+                                val desc: String = td[1].ownText()
+
+                                val amount: Double? = td[2].ownText()
+                                    .replaceFirst(",", ".")
+                                    .toDoubleOrNull()
+
+                                result.history.add(Transaction(time, desc, amount))
                             }
                         } else { // Missing data
-
+                            result.error = getString(R.string.err_nodata)
+                            cancel(false)
                         }
                     }
             }
             catch (e: Exception) {
+                result.error = e.localizedMessage
                 cancel(false)
             }
-            finally {
-                return Result(error, balance, history.reversed())
-            }
+
+            result.history.reverse()
+
+            return result
         }
 
         override fun onPostExecute(result: Result) {
@@ -140,14 +139,14 @@ class AccountActivity : AppCompatActivity() {
         override fun onCancelled(result: Result) {
             super.onCancelled(result)
             swipeRefreshLayout.isRefreshing = false
-            Toast.makeText(applicationContext, getString(R.string.account_err_network), Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "${getString(R.string.err_network)}: ${result.error}", Toast.LENGTH_LONG).show()
         }
 
     }
 
     data class Result(
-        val error: String?,
-        val balance: Double?,
-        val history: List<Transaction>
+        var error: String?,
+        var balance: Double?,
+        val history: ArrayList<Transaction>
     )
 }

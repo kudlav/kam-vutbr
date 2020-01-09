@@ -144,10 +144,7 @@ class MenuActivity : AppCompatActivity() {
                             val weightParts: List<String>? = tmpStr?.split("/")
                             var weight: Int? = null
                             if (weightParts != null && weightParts.size > 1) {
-                                try {
-                                    weight = weightParts[1].trim().toInt()
-                                } catch (e: NumberFormatException) {
-                                }
+                                weight = weightParts[1].trim().toIntOrNull()
                             }
 
                             // Czech name
@@ -172,30 +169,21 @@ class MenuActivity : AppCompatActivity() {
                             tmpStr = tr.selectFirst(".slcen1")?.ownText()?.replaceFirst(",-", "")
                             var priceStudent: Int? = null
                             if (tmpStr != null && tmpStr.isNotBlank()) {
-                                try {
-                                    priceStudent = tmpStr.toInt()
-                                } catch (e: NumberFormatException) {
-                                }
+                                priceStudent = tmpStr.toIntOrNull()
                             }
 
                             // Employee price
                             tmpStr = tr.selectFirst(".slcen2")?.ownText()?.replaceFirst(",-", "")
                             var priceEmployee: Int? = null
                             if (tmpStr != null && tmpStr.isNotBlank()) {
-                                try {
-                                    priceEmployee = tmpStr.toInt()
-                                } catch (e: NumberFormatException) {
-                                }
+                                priceEmployee = tmpStr.toIntOrNull()
                             }
 
                             // Other price
                             tmpStr = tr.selectFirst(".slcen3")?.ownText()?.replaceFirst(",-", "")
                             var priceOther: Int? = null
                             if (tmpStr != null && tmpStr.isNotBlank()) {
-                                try {
-                                    priceOther = tmpStr.toInt()
-                                } catch (e: NumberFormatException) {
-                                }
+                                priceOther = tmpStr.toIntOrNull()
                             }
 
                             // Create Food object
@@ -222,7 +210,7 @@ class MenuActivity : AppCompatActivity() {
                 }
             }
             catch (e: Exception) {
-                result.error = e.message
+                result.error = e.localizedMessage
                 cancel(false)
             }
 

@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun doInBackground(vararg params: ArrayList<Restaurant>): Result {
-            var restaurantList: ArrayList<Restaurant> = params[0]
+            val result = Result(params[0], null)
 
             try {
                 Jsoup.connect(getString(R.string.url_restaurants)).get().run {
@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                             .firstOrNull()
 
                         // Update restaurant
-                        val restaurant: Restaurant? = restaurantList.find {
+                        val restaurant: Restaurant? = result.restaurants.find {
                                 restaurant -> restaurant.id == id
                         }
                         if (restaurant != null) {
@@ -130,29 +130,24 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             catch (e: Exception) {
+                result.error = e.localizedMessage
                 cancel(false)
-                return Result(ArrayList(), "Communication error")
             }
 
-            return Result(restaurantList, null)
+            return result
         }
 
         override fun onPostExecute(result: Result) {
             super.onPostExecute(result)
             swipeRefreshLayout.isRefreshing = false
 
-            if (result.error == null) {
-                restaurantView.adapter = RestaurantAdapter(restaurantList)
-            }
-            else {
-                Toast.makeText(applicationContext, result.error, Toast.LENGTH_LONG).show()
-            }
+            restaurantView.adapter = RestaurantAdapter(result.restaurants)
         }
 
         override fun onCancelled(result: Result) {
             super.onCancelled(result)
             swipeRefreshLayout.isRefreshing = false
-            Toast.makeText(applicationContext, result.error, Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, "${getString(R.string.err_network)}: ${result.error}", Toast.LENGTH_LONG).show()
         }
 
     }
@@ -160,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
     data class Result(
         val restaurants: ArrayList<Restaurant>,
-        val error: String?
+        var error: String?
     )
 
 }

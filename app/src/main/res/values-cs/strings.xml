@@ -18,11 +18,12 @@
     <string name="settings_category_account">Účet</string>
     <string name="settings_category_view">Zobrazení</string>
     <string name="err_missing_card">Nejprve prosím vyplňte číslo karty ISIC nebo VUT.</string>
+    <string name="err_network">Chyba stahování dat</string>
+    <string name="err_nodata" >Chybná data</string>
     <string name="label_ok">OK</string>
     <string name="account_history">Historie transakcí</string>
     <string name="account_balance">Stav konta:</string>
     <string name="account_balance_unknown">Neznámý</string>
-    <string name="account_err_network" >Stav účtu se nepodařilo stáhnout</string>
     <string name="btn_close">Zavřít</string>
     <string name="restaurant_closed">Zavřeno</string>
     <string name="restaurant_interrupt">Provoz přerušen</string>
