@@ -2,4 +2,5 @@
 <resources>
     <color name="primaryText">#FFFFFF</color>
     <color name="redText">#E40028</color>
+    <color name="colorDivider">#424242</color>
 </resources>
