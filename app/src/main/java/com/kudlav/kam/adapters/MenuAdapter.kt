@@ -12,6 +12,7 @@ import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection
 import kotlinx.android.synthetic.main.item_menu.view.*
 import kotlinx.android.synthetic.main.header_menu.view.*
 import android.view.LayoutInflater
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.R
 import kotlinx.android.synthetic.main.dialog_food.view.*
 import java.lang.Exception
@@ -92,7 +93,8 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
 
                 val inflater = LayoutInflater.from(this.view.context)
                 val dialogView = inflater.inflate(R.layout.dialog_food, null)
-                dialogView.lvIngredients.adapter = IngredientsAdapter(view.context, data.ingredients)
+                dialogView.lvIngredients.layoutManager = LinearLayoutManager(this.view.context)
+                dialogView.lvIngredients.adapter = IngredientsAdapter(data.ingredients)
                 dialogBuilder.setView(dialogView)
 
                 val alert = dialogBuilder.create()

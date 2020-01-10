@@ -11,15 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="@string/ingredients"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
         android:textColor="@color/redText"
-        android:textSize="16sp"
         android:textStyle="bold" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lvIngredients"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:listSelector="@android:color/transparent"
-        android:divider="@null" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
