@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="url_menu" translatable="false"><![CDATA[http://www.kam.vutbr.cz/?p=menu&provoz=]]></string>
+    <string name="url_menu"><![CDATA[http://www.kam.vutbr.cz/?p=menu&lang=EN&t=&provoz=]]></string>
     <!--<string name="url_menu" translatable="false"><![CDATA[http://www.stud.fit.vutbr.cz/~xkudla15/kam/provoz]]></string>-->
     <string name="url_account" translatable="false">http://www.kam.vutbr.cz/?p=oper</string>
     <string name="url_restaurants" translatable="false">http://www.kam.vutbr.cz/?p=otdo</string>

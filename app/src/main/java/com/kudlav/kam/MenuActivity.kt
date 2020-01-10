@@ -148,11 +148,11 @@ class MenuActivity : AppCompatActivity() {
                             }
 
                             // Czech name
-                            tmpStr = tr.selectFirst(".jjjaz1jjj")?.ownText()
+                            tmpStr = tr.selectFirst(".levyjid")?.ownText()
                             val nameCz: String = tmpStr ?: ""
 
                             // Allergens
-                            tmpStr = tr.selectFirst(".jjjaz1jjj small")?.text()?.trim()
+                            tmpStr = tr.selectFirst(".levyjid small")?.text()?.trim()
                             val allergensParts: List<String>? = tmpStr?.split(',')
                             val allergens = ArrayList<Int>()
                             try {
@@ -162,7 +162,7 @@ class MenuActivity : AppCompatActivity() {
                             } catch (e: Exception) { }
 
                             // English name
-                            tmpStr = tr.selectFirst(".jjjaz2jjj")?.ownText()
+                            tmpStr = tr.select(".levyjid").getOrNull(1)?.ownText()
                             val nameEn: String = tmpStr ?: ""
 
                             // Student price
