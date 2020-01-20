@@ -20,6 +20,7 @@ import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_menu.swipeRefreshLayout
+import org.jsoup.Connection.Response
 import org.jsoup.select.Elements
 
 class MenuActivity : AppCompatActivity() {
@@ -108,7 +109,10 @@ class MenuActivity : AppCompatActivity() {
             val result = Result(ArrayList(), ArrayList(), ArrayList(), null)
 
             try {
-                Jsoup.connect(getString(R.string.url_menu) + id).get().run {
+                val response: Response = Jsoup.connect(getString(R.string.url_menu) + id)
+                    .execute()
+                Jsoup.parse(response.body()).run {
+
                     val menu: Elements = select("#m$id tr")
 
                     if (menu.isEmpty()) {

@@ -14,6 +14,8 @@ import com.kudlav.kam.adapters.AccountAdapter
 import com.kudlav.kam.data.Transaction
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
 import kotlinx.android.synthetic.main.activity_account.*
+import org.jsoup.Connection.Response
+import org.jsoup.Connection.Method
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.text.ParseException
@@ -70,50 +72,51 @@ class AccountActivity : AppCompatActivity() {
             val result = Result(null, null, ArrayList())
 
             try {
-                Jsoup.connect(getString(R.string.url_account))
+                val response: Response = Jsoup.connect(getString(R.string.url_account))
                     .header("Content-Type", "application/x-www-form-urlencoded")
                     .requestBody("aktu=1&submit=Hledej&tisky=tisky&cis=${params[0]}")
-                    .post()
-                    .run {
+                    .method(Method.POST)
+                    .execute()
+                Jsoup.parse(response.body()).run {
 
-                        val tables: Elements = select("#sa2 form table")
+                    val tables: Elements = select("#sa2 form table")
 
-                        if (tables.size == 2) {
+                    if (tables.size == 2) {
 
-                            // Account balance
-                            result.balance = tables[0].selectFirst("tr:nth-child(4) td:nth-child(2)")
-                                ?.ownText()
-                                ?.replaceFirst(" Kč", "")
-                                ?.replaceFirst(",", ".")
-                                ?.toDoubleOrNull()
+                        // Account balance
+                        result.balance = tables[0].selectFirst("tr:nth-child(4) td:nth-child(2)")
+                            ?.ownText()
+                            ?.replaceFirst(" Kč", "")
+                            ?.replaceFirst(",", ".")
+                            ?.toDoubleOrNull()
 
-                            // Transaction history
-                            val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
-                            val tr: Elements = tables[1].getElementsByTag("tr")
+                        // Transaction history
+                        val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
+                        val tr: Elements = tables[1].getElementsByTag("tr")
 
-                            for (i: Int in 1 until tr.size) {
-                                val td: Elements = tr[i].getElementsByTag("td")
-                                if (td.size != 3) continue
+                        for (i: Int in 1 until tr.size) {
+                            val td: Elements = tr[i].getElementsByTag("td")
+                            if (td.size != 3) continue
 
-                                var time: Date? = null
-                                try {
-                                    time = df.parse(td[0].ownText())
-                                } catch (e: ParseException) {
-                                }
-
-                                val desc: String = td[1].ownText()
-
-                                val amount: Double? = td[2].ownText()
-                                    .replaceFirst(",", ".")
-                                    .toDoubleOrNull()
-
-                                result.history.add(Transaction(time, desc, amount))
+                            var time: Date? = null
+                            try {
+                                time = df.parse(td[0].ownText())
+                            } catch (e: ParseException) {
                             }
-                        } else { // Missing data
-                            result.error = getString(R.string.err_nodata)
-                            cancel(false)
+
+                            val desc: String = td[1].ownText()
+
+                            val amount: Double? = td[2].ownText()
+                                .replaceFirst(",", ".")
+                                .toDoubleOrNull()
+
+                            result.history.add(Transaction(time, desc, amount))
                         }
+                    } else { // Missing data
+                        result.error = getString(R.string.err_nodata)
+                        cancel(false)
                     }
+                }
             }
             catch (e: Exception) {
                 result.error = e.localizedMessage

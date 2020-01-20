@@ -15,6 +15,7 @@ import com.kudlav.kam.adapters.RestaurantAdapter
 import com.kudlav.kam.data.Restaurant
 import com.kudlav.kam.data.RestaurantDatabase
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jsoup.Connection.Response
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 
@@ -103,7 +104,10 @@ class MainActivity : AppCompatActivity() {
             val result = Result(params[0], null)
 
             try {
-                Jsoup.connect(getString(R.string.url_restaurants)).get().run {
+                val response: Response = Jsoup.connect(getString(R.string.url_restaurants))
+                    .execute()
+                Jsoup.parse(response.body()).run {
+
                     val tr: Elements = select("#sa2 > .ntab > tbody > tr")
                     for (i: Int in 1 until tr.size) {
                         val td: Elements = tr[i].getElementsByTag("td")
