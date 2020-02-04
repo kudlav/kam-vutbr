@@ -40,8 +40,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:autoLink="web"
+                    android:paddingTop="8dp"
                     android:text="@string/url_github" />
             </LinearLayout>
 
@@ -72,8 +72,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:autoLink="email"
+                    android:paddingTop="8dp"
                     android:text="@string/contact_email" />
             </LinearLayout>
 
