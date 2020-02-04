@@ -13,3 +13,4 @@
 .externalNativeBuild
 .idea/dictionaries/
 app/release/
+app/debug/
