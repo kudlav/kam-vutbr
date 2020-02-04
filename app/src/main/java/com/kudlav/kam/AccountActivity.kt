@@ -78,7 +78,7 @@ class AccountActivity : AppCompatActivity() {
 
                         val tables: Elements = select("#sa2 form table")
 
-                        if (tables.size == 2) {
+                        if (tables.size > 0) {
 
                             // Account balance
                             result.balance = tables[0].selectFirst("tr:nth-child(4) td:nth-child(2)")
@@ -87,28 +87,32 @@ class AccountActivity : AppCompatActivity() {
                                 ?.replaceFirst(",", ".")
                                 ?.toDoubleOrNull()
 
-                            // Transaction history
-                            val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
-                            val tr: Elements = tables[1].getElementsByTag("tr")
+                            if (tables.size > 1) {
 
-                            for (i: Int in 1 until tr.size) {
-                                val td: Elements = tr[i].getElementsByTag("td")
-                                if (td.size != 3) continue
+                                // Transaction history
+                                val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
+                                val tr: Elements = tables[1].getElementsByTag("tr")
 
-                                var time: Date? = null
-                                try {
-                                    time = df.parse(td[0].ownText())
-                                } catch (e: ParseException) {
+                                for (i: Int in 1 until tr.size) {
+                                    val td: Elements = tr[i].getElementsByTag("td")
+                                    if (td.size != 3) continue
+
+                                    var time: Date? = null
+                                    try {
+                                        time = df.parse(td[0].ownText())
+                                    } catch (e: ParseException) {
+                                    }
+
+                                    val desc: String = td[1].ownText()
+
+                                    val amount: Double? = td[2].ownText()
+                                        .replaceFirst(",", ".")
+                                        .toDoubleOrNull()
+
+                                    result.history.add(Transaction(time, desc, amount))
                                 }
+                            } else {}
 
-                                val desc: String = td[1].ownText()
-
-                                val amount: Double? = td[2].ownText()
-                                    .replaceFirst(",", ".")
-                                    .toDoubleOrNull()
-
-                                result.history.add(Transaction(time, desc, amount))
-                            }
                         } else { // Missing data
                             result.error = getString(R.string.err_nodata)
                             cancel(false)
