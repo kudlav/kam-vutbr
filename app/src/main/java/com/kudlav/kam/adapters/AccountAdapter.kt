@@ -53,7 +53,10 @@ class AccountAdapter(private val data: AccountActivity.Result): StatelessSection
                 else "?. ?."
             view.tvDescription.text = transaction.description
             view.tvAmount.text =
-                if (transaction.amount != null) "%,.2f %s".format(transaction.amount, view.context.getString(R.string.currency))
+                if (transaction.amount != null) {
+                    if (transaction.amount % 1 == 0.0) "%.0f %s".format(transaction.amount, view.context.getString(R.string.currency))
+                    else "%.2f %s".format(transaction.amount, view.context.getString(R.string.currency))
+                }
                 else "? ${view.context.getString(R.string.currency)}"
         }
 
@@ -62,8 +65,12 @@ class AccountAdapter(private val data: AccountActivity.Result): StatelessSection
     inner class HeaderViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
         fun bind() {
+            val balance: Double? = data.balance
             view.tvBalance.text =
-                if (data.balance != null) "%.2f %s".format(data.balance, view.context.getString(R.string.currency))
+                if (balance != null) {
+                    if (balance % 1 == 0.0) "%.0f %s".format(balance, view.context.getString(R.string.currency))
+                    else "%.2f %s".format(balance, view.context.getString(R.string.currency))
+                }
                 else view.context.getString(R.string.account_balance_unknown)
         }
 
