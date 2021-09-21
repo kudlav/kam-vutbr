@@ -119,7 +119,7 @@ class MenuActivity : AppCompatActivity() {
                     else {
 
                         val ingredientsList = ArrayList<List<String>>()
-                        val regex = Regex("a\\[(\\d+)\\][^\"]*\"([^\"]*)")
+                        val regex = Regex("a\\[(\\d+)][^\"]*\"([^\"]*)")
                         regex.findAll(selectFirst("#sa2 script").html()).forEach {match: MatchResult ->
                             if (match.groupValues.size == 3) {
                                 val ingredients: List<String> = match.groupValues[2].split("<br/>")
@@ -130,24 +130,21 @@ class MenuActivity : AppCompatActivity() {
                         menu.forEachIndexed { index: Int, tr: Element ->
 
                             // Food type (MAIN/SOUP/OTHER)
-                            val td0: Element? = tr.selectFirst("td")
-                            var tmpStr: String? = td0?.ownText()
-                            val type: FoodType
-                            if (tmpStr != null && tmpStr.isNotBlank()) {
-                                type = when (tmpStr[0]) {
+                            var tmpStr: String? = tr.selectFirst("td")?.ownText()
+                            val type: FoodType = if (tmpStr != null && tmpStr.isNotBlank()) {
+                                when (tmpStr[0]) {
                                     'P' -> FoodType.SOUP
                                     'H' -> FoodType.MAIN
                                     else -> FoodType.OTHER
                                 }
-                            } else type = FoodType.OTHER
+                            } else FoodType.OTHER
 
                             // Foot weight
-                            tmpStr = td0?.selectFirst("small")?.text()
+                            tmpStr = tr.getElementsByClass("gram")?.first()?.text()
                             val weightParts: List<String>? = tmpStr?.split("/")
-                            var weight: Int? = null
-                            if (weightParts != null && weightParts.size > 1) {
-                                weight = weightParts[1].trim().toIntOrNull()
-                            }
+                            val weight: Int? = if (weightParts != null && weightParts.isNotEmpty()) {
+                                weightParts.last().trim().toIntOrNull()
+                            } else null
 
                             // Czech name
                             tmpStr = tr.selectFirst(".levyjid")?.ownText()
@@ -169,24 +166,21 @@ class MenuActivity : AppCompatActivity() {
 
                             // Student price
                             tmpStr = tr.selectFirst(".slcen1")?.ownText()?.replaceFirst(",-", "")
-                            var priceStudent: Int? = null
-                            if (tmpStr != null && tmpStr.isNotBlank()) {
-                                priceStudent = tmpStr.toIntOrNull()
-                            }
+                            val priceStudent: Int? = if (tmpStr != null && tmpStr.isNotBlank()) {
+                                tmpStr.toIntOrNull()
+                            } else null
 
                             // Employee price
                             tmpStr = tr.selectFirst(".slcen2")?.ownText()?.replaceFirst(",-", "")
-                            var priceEmployee: Int? = null
-                            if (tmpStr != null && tmpStr.isNotBlank()) {
-                                priceEmployee = tmpStr.toIntOrNull()
-                            }
+                            val priceEmployee: Int? = if (tmpStr != null && tmpStr.isNotBlank()) {
+                                tmpStr.toIntOrNull()
+                            } else null
 
                             // Other price
                             tmpStr = tr.selectFirst(".slcen3")?.ownText()?.replaceFirst(",-", "")
-                            var priceOther: Int? = null
-                            if (tmpStr != null && tmpStr.isNotBlank()) {
-                                priceOther = tmpStr.toIntOrNull()
-                            }
+                            val priceOther: Int? = if (tmpStr != null && tmpStr.isNotBlank()) {
+                                tmpStr.toIntOrNull()
+                            } else null
 
                             // Create Food object
                             val food = Food(
