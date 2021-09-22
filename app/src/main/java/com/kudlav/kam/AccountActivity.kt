@@ -100,8 +100,7 @@ class AccountActivity : AppCompatActivity() {
                                     var time: Date? = null
                                     try {
                                         time = df.parse(td[0].ownText())
-                                    } catch (e: ParseException) {
-                                    }
+                                    } catch (e: ParseException) {}
 
                                     val desc: String = td[1].ownText()
 

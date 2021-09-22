@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section
 import kotlinx.android.synthetic.main.item_menu.view.*
 import kotlinx.android.synthetic.main.header_menu.view.*
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.R
+import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder
 import kotlinx.android.synthetic.main.dialog_food.view.*
 import java.lang.Exception
 
-class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): StatelessSection(
+class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): Section(
     SectionParameters.builder()
         .itemResourceId(R.layout.item_menu)
         .headerResourceId(R.layout.header_menu)
@@ -46,6 +47,10 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
     override fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder?) {
         val headerHolder = holder as HeaderViewHolder
         headerHolder.bind()
+    }
+
+    override fun getFooterViewHolder(parent: View?): RecyclerView.ViewHolder {
+        return EmptyViewHolder(parent)
     }
 
     inner class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {

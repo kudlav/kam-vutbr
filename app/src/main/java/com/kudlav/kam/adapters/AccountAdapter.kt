@@ -6,13 +6,13 @@ import com.kudlav.kam.AccountActivity
 import com.kudlav.kam.R
 import com.kudlav.kam.data.Transaction
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
-import io.github.luizgrp.sectionedrecyclerviewadapter.StatelessSection
+import io.github.luizgrp.sectionedrecyclerviewadapter.Section
 import kotlinx.android.synthetic.main.header_account.view.*
 import kotlinx.android.synthetic.main.item_account.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
-class AccountAdapter(private val data: AccountActivity.Result): StatelessSection(
+class AccountAdapter(private val data: AccountActivity.Result): Section(
     SectionParameters.builder()
         .itemResourceId(R.layout.item_account)
         .headerResourceId(R.layout.header_account)

@@ -40,8 +40,8 @@
                 android:id="@+id/ivOpen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="@color/colorShadow"
-                app:srcCompat="@drawable/ic_access_time" />
+                app:srcCompat="@drawable/ic_access_time"
+                app:tint="@color/colorShadow" />
 
             <TextView
                 android:id="@+id/tvOpen"

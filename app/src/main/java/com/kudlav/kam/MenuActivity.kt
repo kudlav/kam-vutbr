@@ -120,7 +120,8 @@ class MenuActivity : AppCompatActivity() {
 
                         val ingredientsList = ArrayList<List<String>>()
                         val regex = Regex("a\\[(\\d+)][^\"]*\"([^\"]*)")
-                        regex.findAll(selectFirst("#sa2 script").html()).forEach {match: MatchResult ->
+                        val htmlIngredients = selectFirst("#sa2 script")?.html() ?: ""
+                        regex.findAll(htmlIngredients).forEach {match: MatchResult ->
                             if (match.groupValues.size == 3) {
                                 val ingredients: List<String> = match.groupValues[2].split("<br/>")
                                 ingredientsList.add(ingredients.subList(2, ingredients.size - 1))
@@ -140,7 +141,7 @@ class MenuActivity : AppCompatActivity() {
                             } else FoodType.OTHER
 
                             // Foot weight
-                            tmpStr = tr.getElementsByClass("gram")?.first()?.text()
+                            tmpStr = tr.getElementsByClass("gram").first()?.text()
                             val weightParts: List<String>? = tmpStr?.split("/")
                             val weight: Int? = if (weightParts != null && weightParts.isNotEmpty()) {
                                 weightParts.last().trim().toIntOrNull()
