@@ -7,10 +7,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/background</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
         <item name="actionBarStyle">@style/ActionBar</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:itemBackground">@drawable/menu_background</item>
+        <item name="alertDialogTheme">@style/DialogStyle</item>
     </style>
 
 </resources>

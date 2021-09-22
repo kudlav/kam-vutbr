@@ -3,6 +3,8 @@
     <color name="colorPrimary">#E40028</color>
     <color name="colorPrimaryDark">#B40020</color>
     <color name="colorAccent">#B40020</color>
+    <color name="background">#FFFFFF</color>
+    <color name="componentBackground">#FAFAFA</color>
     <color name="colorIcon">#A0A0A0</color>
     <color name="colorShadow">#E6E6E6</color>
     <color name="colorDivider">#E6E6E6</color>
