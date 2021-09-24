@@ -143,6 +143,7 @@ class AccountActivity : AppCompatActivity() {
             super.onCancelled(result)
             swipeRefreshLayout.isRefreshing = false
             Toast.makeText(applicationContext, "${getString(R.string.err_network)}: ${result.error}", Toast.LENGTH_LONG).show()
+            finish()
         }
 
     }
