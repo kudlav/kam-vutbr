@@ -13,24 +13,25 @@ import androidx.preference.PreferenceManager
 import com.kudlav.kam.data.Restaurant
 import com.kudlav.kam.data.RestaurantDatabase
 import org.jsoup.Jsoup
-import kotlinx.android.synthetic.main.activity_menu.*
 import org.jsoup.nodes.Element
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.adapters.MenuAdapter
 import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
+import com.kudlav.kam.databinding.ActivityMenuBinding
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
-import kotlinx.android.synthetic.main.activity_menu.swipeRefreshLayout
 import org.jsoup.select.Elements
 
 class MenuActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMenuBinding
     private var restaurantId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        setContentView(R.layout.activity_menu)
+        binding = ActivityMenuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setResult(RESULT_CANCELED, null)
 
         // load data
@@ -38,12 +39,12 @@ class MenuActivity : AppCompatActivity() {
         val restaurant: Restaurant? = RestaurantDatabase.getRestaurant(applicationContext, restaurantId)
         title = restaurant?.name
 
-        menuView.layoutManager = LinearLayoutManager(this)
+        binding.menuView.layoutManager = LinearLayoutManager(this)
 
         DownloadMenu().execute(restaurantId)
 
-        swipeRefreshLayout.setOnRefreshListener {
-            llError.visibility = View.GONE
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            binding.llError.visibility = View.GONE
             DownloadMenu().execute(restaurantId)
         }
     }
@@ -101,7 +102,7 @@ class MenuActivity : AppCompatActivity() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            swipeRefreshLayout.isRefreshing = true
+            binding.swipeRefreshLayout.isRefreshing = true
         }
 
         override fun doInBackground(vararg params: Int?): Result {
@@ -216,7 +217,7 @@ class MenuActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: Result) {
             super.onPostExecute(result)
-            swipeRefreshLayout.isRefreshing = false
+            binding.swipeRefreshLayout.isRefreshing = false
 
             val adapter = SectionedRecyclerViewAdapter()
             if (result.soup.isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.SOUP, result.soup))
@@ -224,27 +225,27 @@ class MenuActivity : AppCompatActivity() {
             if (result.other.isNotEmpty()) adapter.addSection(MenuAdapter(FoodType.OTHER, result.other))
 
             if (result.error != null) {
-                llError.visibility = View.VISIBLE
-                tvError.text = result.error
+                binding.llError.visibility = View.VISIBLE
+                binding.tvError.text = result.error
             }
             else if (result.soup.isEmpty() && result.main.isEmpty() && result.other.isEmpty()) {
-                llError.visibility = View.VISIBLE
-                tvError.text = getString(R.string.menu_err_nothing)
+                binding.llError.visibility = View.VISIBLE
+                binding.tvError.text = getString(R.string.menu_err_nothing)
             }
             else {
-                menuView.visibility = View.VISIBLE
+                binding.menuView.visibility = View.VISIBLE
             }
 
-            menuView.adapter = adapter
+            binding.menuView.adapter = adapter
         }
 
         override fun onCancelled(result: Result) {
             super.onCancelled(result)
-            swipeRefreshLayout.isRefreshing = false
+            binding.swipeRefreshLayout.isRefreshing = false
 
-            llError.visibility = View.VISIBLE
-            tvError.text = result.error
-            menuView.visibility = View.GONE
+            binding.llError.visibility = View.VISIBLE
+            binding.tvError.text = result.error
+            binding.menuView.visibility = View.GONE
         }
 
     }

@@ -13,7 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kudlav.kam.MenuActivity
 import com.kudlav.kam.R
 import com.kudlav.kam.data.Restaurant
-import kotlinx.android.synthetic.main.item_restaurant.view.*
+import com.kudlav.kam.databinding.ItemRestaurantBinding
 
 class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Adapter<RestaurantAdapter.ViewHolder>() {
 
@@ -32,37 +32,39 @@ class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Ad
 
     inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
+        private val binding = ItemRestaurantBinding.bind(view)
+
         fun bind() {
             val data = itemList[adapterPosition]
-            view.tvName.text = data.name
+            binding.tvName.text = data.name
             when (data.state) {
                 'z' -> {
-                    view.tvOpen.text = view.context.getString(R.string.restaurant_closed)
-                    view.tvOpen.setTextColor(Color.parseColor("#B40020"))
-                    view.tvOpen.setTypeface(null, Typeface.NORMAL)
-                    view.ivOpen.setColorFilter(Color.parseColor("#B40020"))
+                    binding.tvOpen.text = view.context.getString(R.string.restaurant_closed)
+                    binding.tvOpen.setTextColor(Color.parseColor("#B40020"))
+                    binding.tvOpen.setTypeface(null, Typeface.NORMAL)
+                    binding.ivOpen.setColorFilter(Color.parseColor("#B40020"))
                 }
                 'x' -> {
-                    view.tvOpen.text = view.context.getString(R.string.restaurant_interrupt)
-                    view.tvOpen.setTextColor(Color.GRAY)
-                    view.tvOpen.setTypeface(null, Typeface.NORMAL)
-                    view.ivOpen.setColorFilter(Color.GRAY)
+                    binding.tvOpen.text = view.context.getString(R.string.restaurant_interrupt)
+                    binding.tvOpen.setTextColor(Color.GRAY)
+                    binding.tvOpen.setTypeface(null, Typeface.NORMAL)
+                    binding.ivOpen.setColorFilter(Color.GRAY)
                 }
                 'n' -> {
-                    view.tvOpen.text = view.context.getString(R.string.restaurant_unavailable)
-                    view.tvOpen.setTextColor(Color.parseColor("#f9a825"))
-                    view.tvOpen.setTypeface(null, Typeface.NORMAL)
-                    view.ivOpen.setColorFilter(Color.parseColor("#f9a825"))
+                    binding.tvOpen.text = view.context.getString(R.string.restaurant_unavailable)
+                    binding.tvOpen.setTextColor(Color.parseColor("#f9a825"))
+                    binding.tvOpen.setTypeface(null, Typeface.NORMAL)
+                    binding.ivOpen.setColorFilter(Color.parseColor("#f9a825"))
                 }
                 'm' -> {
-                    view.tvOpen.text = view.context.getString(R.string.restaurant_available)
-                    view.tvOpen.setTextColor(Color.parseColor("#4caf50"))
-                    view.tvOpen.setTypeface(null, Typeface.BOLD)
-                    view.ivOpen.setColorFilter(Color.parseColor("#4caf50"))
+                    binding.tvOpen.text = view.context.getString(R.string.restaurant_available)
+                    binding.tvOpen.setTextColor(Color.parseColor("#4caf50"))
+                    binding.tvOpen.setTypeface(null, Typeface.BOLD)
+                    binding.ivOpen.setColorFilter(Color.parseColor("#4caf50"))
                 }
                 else -> {
-                    view.tvOpen.text = data.state.toString()
-                    view.tvOpen.setTypeface(null, Typeface.NORMAL)
+                    binding.tvOpen.text = data.state.toString()
+                    binding.tvOpen.setTypeface(null, Typeface.NORMAL)
                 }
             }
 
@@ -77,14 +79,14 @@ class RestaurantAdapter(private val itemList: List<Restaurant>): RecyclerView.Ad
                 Glide.with(view)
                     .load("")
                     .placeholder(R.drawable.favorite)
-                    .into(view.ivRestaurantImg)
+                    .into(binding.ivRestaurantImg)
             }
             else {
                 Glide.with(view)
                     .load(data.pictureUrl)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .placeholder(R.mipmap.ic_launcher_round)
-                    .into(view.ivRestaurantImg)
+                    .into(binding.ivRestaurantImg)
             }
         }
     }

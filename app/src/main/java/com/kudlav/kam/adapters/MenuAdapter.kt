@@ -9,13 +9,13 @@ import com.kudlav.kam.data.Food
 import com.kudlav.kam.data.FoodType
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section
-import kotlinx.android.synthetic.main.item_menu.view.*
-import kotlinx.android.synthetic.main.header_menu.view.*
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.R
+import com.kudlav.kam.databinding.DialogFoodBinding
+import com.kudlav.kam.databinding.HeaderMenuBinding
+import com.kudlav.kam.databinding.ItemMenuBinding
 import io.github.luizgrp.sectionedrecyclerviewadapter.utils.EmptyViewHolder
-import kotlinx.android.synthetic.main.dialog_food.view.*
 import java.lang.Exception
 
 class MenuAdapter(private val section: FoodType, private val itemList: ArrayList<Food>): Section(
@@ -55,6 +55,7 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
 
     inner class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
+        private val binding = ItemMenuBinding.bind(view)
         private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
         private val lang: String? = preferences.getString("food_lang", "cs")
         private val priceCategory: String? = preferences.getString("price_category", "cs")
@@ -70,8 +71,8 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
                 else -> data.priceOther
             }
 
-            view.tvName.text = if (lang == "en") data.nameEn else data.nameCz
-            view.tvWeight.text =
+            binding.tvName.text = if (lang == "en") data.nameEn else data.nameCz
+            binding.tvWeight.text =
                 if (data.weight != null) "%d %s".format(data.weight, view.context.getString(R.string.unit_weight))
                 else ""
             val allergens: ArrayList<String> = ArrayList()
@@ -83,9 +84,9 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
                 }
             } catch (e: Exception) {
             }
-            view.tvAllergens.text = allergens.joinToString()
+            binding.tvAllergens.text = allergens.joinToString()
 
-            view.tvPrice.text =
+            binding.tvPrice.text =
                 if (price != null) "%d %s".format(price, view.context.getString(R.string.currency))
                 else "? ${view.context.getString(R.string.currency)}"
 
@@ -98,12 +99,13 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
 
                 val inflater = LayoutInflater.from(this.view.context)
                 val dialogView = inflater.inflate(R.layout.dialog_food, null)
-                dialogView.lvIngredients.layoutManager = LinearLayoutManager(this.view.context)
-                dialogView.lvIngredients.adapter = IngredientsAdapter(data.ingredients)
+                val dialogBinding = DialogFoodBinding.bind(dialogView)
+                dialogBinding.lvIngredients.layoutManager = LinearLayoutManager(this.view.context)
+                dialogBinding.lvIngredients.adapter = IngredientsAdapter(data.ingredients)
                 dialogBuilder.setView(dialogView)
 
                 val alert = dialogBuilder.create()
-                alert.setTitle(view.tvName.text)
+                alert.setTitle(binding.tvName.text)
                 alert.show()
             }
         }
@@ -112,8 +114,10 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
 
     inner class HeaderViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
+        private val binding = HeaderMenuBinding.bind(view)
+
         fun bind() {
-            view.tvCategory.text = when(section) {
+            binding.tvCategory.text = when(section) {
                 FoodType.SOUP -> view.context.getString(R.string.foodtype_soup)
                 FoodType.MAIN -> view.context.getString(R.string.foodtype_main)
                 else -> view.context.getString(R.string.foodtype_other)

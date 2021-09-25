@@ -14,24 +14,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.adapters.RestaurantAdapter
 import com.kudlav.kam.data.Restaurant
 import com.kudlav.kam.data.RestaurantDatabase
-import kotlinx.android.synthetic.main.activity_main.*
+import com.kudlav.kam.databinding.ActivityMainBinding
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private var restaurantList = ArrayList<Restaurant>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         loadData()
 
-        restaurantView.layoutManager = LinearLayoutManager(this)
-        restaurantView.adapter = RestaurantAdapter(restaurantList)
+        binding.restaurantView.layoutManager = LinearLayoutManager(this)
+        binding.restaurantView.adapter = RestaurantAdapter(restaurantList)
 
-        swipeRefreshLayout.setOnRefreshListener {
+        binding.swipeRefreshLayout.setOnRefreshListener {
             DownloadOpeningHours().execute(restaurantList)
         }
     }
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         if (resultCode == Activity.RESULT_OK) {
             loadData()
-            restaurantView.adapter?.notifyDataSetChanged()
+            binding.restaurantView.adapter?.notifyDataSetChanged()
         }
     }
 
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            swipeRefreshLayout.isRefreshing = true
+            binding.swipeRefreshLayout.isRefreshing = true
         }
 
         override fun doInBackground(vararg params: ArrayList<Restaurant>): Result {
@@ -139,14 +141,14 @@ class MainActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: Result) {
             super.onPostExecute(result)
-            swipeRefreshLayout.isRefreshing = false
+            binding.swipeRefreshLayout.isRefreshing = false
 
-            restaurantView.adapter = RestaurantAdapter(result.restaurants)
+            binding.restaurantView.adapter = RestaurantAdapter(result.restaurants)
         }
 
         override fun onCancelled(result: Result) {
             super.onCancelled(result)
-            swipeRefreshLayout.isRefreshing = false
+            binding.swipeRefreshLayout.isRefreshing = false
             Toast.makeText(applicationContext, "${getString(R.string.err_network)}: ${result.error}", Toast.LENGTH_LONG).show()
         }
 

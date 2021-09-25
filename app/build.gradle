@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 android {
     compileSdkVersion 30
     defaultConfig {
@@ -13,6 +11,9 @@ android {
         versionCode 16
         versionName "1.6.0"
         vectorDrawables.useSupportLibrary = true
+    }
+    buildFeatures {
+        viewBinding true
     }
     buildTypes {
         release {

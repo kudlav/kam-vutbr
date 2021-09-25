@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kudlav.kam.AccountActivity
 import com.kudlav.kam.R
 import com.kudlav.kam.data.Transaction
+import com.kudlav.kam.databinding.HeaderAccountBinding
+import com.kudlav.kam.databinding.ItemAccountBinding
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
 import io.github.luizgrp.sectionedrecyclerviewadapter.Section
-import kotlinx.android.synthetic.main.header_account.view.*
-import kotlinx.android.synthetic.main.item_account.view.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 
@@ -45,14 +45,16 @@ class AccountAdapter(private val data: AccountActivity.Result): Section(
     inner class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
         private val df: DateFormat = SimpleDateFormat("d. M.")
+        private val binding = ItemAccountBinding.bind(view)
 
         fun bind(position: Int) {
+
             val transaction: Transaction = data.history[position]
-            view.tvTime.text =
+            binding.tvTime.text =
                 if (transaction.time != null) df.format(transaction.time)
                 else "?. ?."
-            view.tvDescription.text = transaction.description
-            view.tvAmount.text =
+            binding.tvDescription.text = transaction.description
+            binding.tvAmount.text =
                 if (transaction.amount != null) {
                     if (transaction.amount % 1 == 0.0) "%.0f %s".format(transaction.amount, view.context.getString(R.string.currency))
                     else "%.2f %s".format(transaction.amount, view.context.getString(R.string.currency))
@@ -64,9 +66,11 @@ class AccountAdapter(private val data: AccountActivity.Result): Section(
 
     inner class HeaderViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
 
+        private val binding = HeaderAccountBinding.bind(view)
+
         fun bind() {
             val balance: Double? = data.balance
-            view.tvBalance.text =
+            binding.tvBalance.text =
                 if (balance != null) {
                     if (balance % 1 == 0.0) "%.0f %s".format(balance, view.context.getString(R.string.currency))
                     else "%.2f %s".format(balance, view.context.getString(R.string.currency))

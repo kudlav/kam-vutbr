@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.kudlav.kam.R
-import kotlinx.android.synthetic.main.item_ingredients.view.*
+import com.kudlav.kam.databinding.ItemIngredientsBinding
 
 class IngredientsAdapter(private val ingredients: List<String>): RecyclerView.Adapter<IngredientsAdapter.ViewHolder>() {
 
@@ -26,9 +26,12 @@ class IngredientsAdapter(private val ingredients: List<String>): RecyclerView.Ad
         holder.bind()
     }
 
-    inner class ViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+
+        private val binding = ItemIngredientsBinding.bind(view)
+
         fun bind() {
-            view.tvIngredient.text = ingredients[adapterPosition]
+            binding.tvIngredient.text = ingredients[adapterPosition]
         }
     }
 

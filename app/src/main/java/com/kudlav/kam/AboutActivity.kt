@@ -2,15 +2,18 @@ package com.kudlav.kam
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_about.*
+import com.kudlav.kam.databinding.ActivityAboutBinding
 
 class AboutActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAboutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_about)
+        binding = ActivityAboutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        tvVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
+        binding.tvVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
     }
 
 }

@@ -12,8 +12,8 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.kudlav.kam.adapters.AccountAdapter
 import com.kudlav.kam.data.Transaction
+import com.kudlav.kam.databinding.ActivityAccountBinding
 import io.github.luizgrp.sectionedrecyclerviewadapter.SectionedRecyclerViewAdapter
-import kotlinx.android.synthetic.main.activity_account.*
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.text.ParseException
@@ -23,11 +23,14 @@ import kotlin.collections.ArrayList
 
 class AccountActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityAccountBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_account)
+        binding = ActivityAccountBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        accountView.layoutManager = LinearLayoutManager(this)
+        binding.accountView.layoutManager = LinearLayoutManager(this)
 
         val sharedPreferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         val cardNo: String? = sharedPreferences.getString("card_number", null)
@@ -35,7 +38,7 @@ class AccountActivity : AppCompatActivity() {
         if (cardNo != null && cardNo != "") {
             DownloadInfo().execute(cardNo)
 
-            swipeRefreshLayout.setOnRefreshListener {
+            binding.swipeRefreshLayout.setOnRefreshListener {
                 DownloadInfo().execute(cardNo)
             }
         }
@@ -62,7 +65,7 @@ class AccountActivity : AppCompatActivity() {
 
         override fun onPreExecute() {
             super.onPreExecute()
-            swipeRefreshLayout.isRefreshing = true
+            binding.swipeRefreshLayout.isRefreshing = true
         }
 
         override fun doInBackground(vararg params: String): Result {
@@ -130,18 +133,18 @@ class AccountActivity : AppCompatActivity() {
 
         override fun onPostExecute(result: Result) {
             super.onPostExecute(result)
-            accountView.visibility = View.VISIBLE
-            swipeRefreshLayout.isRefreshing = false
+            binding.accountView.visibility = View.VISIBLE
+            binding.swipeRefreshLayout.isRefreshing = false
 
             val adapter = SectionedRecyclerViewAdapter()
             adapter.addSection(AccountAdapter(result))
 
-            accountView.adapter = adapter
+            binding.accountView.adapter = adapter
         }
 
         override fun onCancelled(result: Result) {
             super.onCancelled(result)
-            swipeRefreshLayout.isRefreshing = false
+            binding.swipeRefreshLayout.isRefreshing = false
             Toast.makeText(applicationContext, "${getString(R.string.err_network)}: ${result.error}", Toast.LENGTH_LONG).show()
             finish()
         }
