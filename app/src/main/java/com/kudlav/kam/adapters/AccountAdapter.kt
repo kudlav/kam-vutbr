@@ -1,83 +1,90 @@
 package com.kudlav.kam.adapters
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.kudlav.kam.AccountActivity
 import com.kudlav.kam.R
 import com.kudlav.kam.data.Transaction
 import com.kudlav.kam.databinding.HeaderAccountBinding
 import com.kudlav.kam.databinding.ItemAccountBinding
-import io.github.luizgrp.sectionedrecyclerviewadapter.SectionParameters
-import io.github.luizgrp.sectionedrecyclerviewadapter.Section
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 
-class AccountAdapter(private val data: AccountActivity.Result): Section(
-    SectionParameters.builder()
-        .itemResourceId(R.layout.item_account)
-        .headerResourceId(R.layout.header_account)
-        .build()
-    )
+class AccountAdapter(private val data: List<Transaction>, private var balance: Double?):
+    RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
 
-    override fun getContentItemsTotal(): Int {
-        return data.history.size
+    companion object {
+        const val HEADER = 0
+        const val ITEM = 1
     }
 
-    override fun getItemViewHolder(parent: View): RecyclerView.ViewHolder {
-        return ItemViewHolder(parent)
+    override fun getItemViewType(position: Int): Int {
+        return when (position) {
+            0 -> HEADER
+            else -> ITEM
+        }
     }
 
-    override fun onBindItemViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val itemViewHolder: ItemViewHolder = holder as ItemViewHolder
-        itemViewHolder.bind(position)
+    override fun getItemCount(): Int {
+        return data.size + 1
     }
 
-    override fun getHeaderViewHolder(view: View): RecyclerView.ViewHolder {
-        return HeaderViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            HEADER -> {
+                val binding = HeaderAccountBinding.inflate(inflater, parent, false)
+                HeaderViewHolder(binding)
+            } else -> {
+                val binding = ItemAccountBinding.inflate(inflater, parent, false)
+                ItemViewHolder(binding)
+            }
+        }
     }
 
-    override fun onBindHeaderViewHolder(holder: RecyclerView.ViewHolder?) {
-        val headerHolder = holder as HeaderViewHolder
-        headerHolder.bind()
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == HEADER)
+            (holder as HeaderViewHolder).bind()
+        else
+            (holder as ItemViewHolder).bind(position)
     }
 
-    inner class ItemViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-
-        private val df: DateFormat = SimpleDateFormat("d. M.")
-        private val binding = ItemAccountBinding.bind(view)
-
+    inner class ItemViewHolder(private val binding: ItemAccountBinding):
+        RecyclerView.ViewHolder(binding.root)
+    {
         fun bind(position: Int) {
-
-            val transaction: Transaction = data.history[position]
+            val currency = binding.root.context.getString(R.string.currency)
+            val transaction: Transaction = data[position-1]
             binding.tvTime.text =
-                if (transaction.time != null) df.format(transaction.time)
+                if (transaction.time != null) SimpleDateFormat("d. M.").format(transaction.time)
                 else "?. ?."
             binding.tvDescription.text = transaction.description
             binding.tvAmount.text =
                 if (transaction.amount != null) {
-                    if (transaction.amount % 1 == 0.0) "%.0f %s".format(transaction.amount, view.context.getString(R.string.currency))
-                    else "%.2f %s".format(transaction.amount, view.context.getString(R.string.currency))
+                    if (transaction.amount % 1 == 0.0)
+                        "%.0f %s".format(transaction.amount, currency)
+                    else
+                        "%.2f %s".format(transaction.amount, currency)
                 }
-                else "? ${view.context.getString(R.string.currency)}"
+                else "? $currency"
         }
-
     }
 
-    inner class HeaderViewHolder(private val view: View): RecyclerView.ViewHolder(view) {
-
-        private val binding = HeaderAccountBinding.bind(view)
-
+    inner class HeaderViewHolder(private val binding: HeaderAccountBinding):
+        RecyclerView.ViewHolder(binding.root)
+    {
         fun bind() {
-            val balance: Double? = data.balance
+            val currency = binding.root.context.getString(R.string.currency)
+            val balance = balance
             binding.tvBalance.text =
                 if (balance != null) {
-                    if (balance % 1 == 0.0) "%.0f %s".format(balance, view.context.getString(R.string.currency))
-                    else "%.2f %s".format(balance, view.context.getString(R.string.currency))
+                    if (balance % 1 == 0.0)
+                        "%.0f %s".format(balance, currency)
+                    else
+                        "%.2f %s".format(balance, currency)
                 }
-                else view.context.getString(R.string.account_balance_unknown)
+                else binding.root.context.getString(R.string.account_balance_unknown)
         }
-
     }
 
 }
