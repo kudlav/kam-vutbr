@@ -10,7 +10,7 @@ import com.kudlav.kam.R
 import com.kudlav.kam.data.Transaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
@@ -46,7 +46,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
                 loading.postValue(false)
             }
         } else {
-            error.sendBlocking("no-card")
+            error.trySendBlocking("no-card")
             loading.value = false
         }
     }
