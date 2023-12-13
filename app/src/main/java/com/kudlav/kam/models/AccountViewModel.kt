@@ -88,7 +88,7 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
                                     var time: Date? = null
                                     try {
                                         time = df.parse(td[0].ownText())
-                                    } catch (e: ParseException) {
+                                    } catch (_: ParseException) {
                                     }
 
                                     val desc: String = td[1].ownText()
