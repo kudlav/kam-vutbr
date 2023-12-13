@@ -3,7 +3,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 30
+    namespace 'com.kudlav.kam'
+    compileSdk 30
     defaultConfig {
         applicationId "com.kudlav.kam"
         minSdkVersion 19
