@@ -2,7 +2,9 @@ package com.kudlav.kam.models
 
 import android.app.Application
 import android.content.SharedPreferences
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import com.kudlav.kam.R
 import com.kudlav.kam.data.Transaction
@@ -15,7 +17,7 @@ import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 class AccountViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -27,31 +29,36 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
     init {
         updateData()
     }
-// todo MULTIPLE UPDATE DATA CALL
+
+    // todo MULTIPLE UPDATE DATA CALL
     fun updateData() {
         loading.value = true
-        val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplication())
+        val pref: SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(getApplication())
         val cardNo: String? = pref.getString("card_number", null)
 
-        if (cardNo != null && cardNo.isNotEmpty()) {
+        if (!cardNo.isNullOrEmpty()) {
             viewModelScope.launch {
-                fetchData(cardNo)
+                val transactions = fetchData(cardNo, true)
+                history.postValue(transactions)
+                transactions.addAll(fetchData(cardNo, false))
+                history.postValue(transactions)
                 loading.postValue(false)
             }
-        }
-        else {
+        } else {
             error.sendBlocking("no-card")
             loading.value = false
         }
     }
 
-    private suspend fun fetchData(cardNo: String) {
-        val newHistory = mutableListOf<Transaction>()
-        try {
-            withContext(Dispatchers.IO) {
+    private suspend fun fetchData(cardNo: String, currentMonth: Boolean): MutableList<Transaction> {
+        val transactions = mutableListOf<Transaction>()
+        withContext(Dispatchers.IO) {
+            val aktu = if (currentMonth) 1 else 0
+            try {
                 Jsoup.connect(getApplication<Application>().getString(R.string.url_account))
                     .header("Content-Type", "application/x-www-form-urlencoded")
-                    .requestBody("aktu=1&submit=Hledej&tisky=tisky&cis=$cardNo")
+                    .requestBody("aktu=$aktu&submit=Hledej&tisky=tisky&cis=$cardNo")
                     .post()
                     .run {
 
@@ -71,17 +78,18 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
                             if (tables.size > 1) {
 
                                 // Transaction history
-                                val df = SimpleDateFormat("d. M. yyy kk:mm:ss")
-                                val tr: Elements = tables[1].getElementsByTag("tr")
+                                val df = SimpleDateFormat("dd.MM.yy kk:mm")
+                                val transactionRows: Elements = tables[1].getElementsByTag("tr")
 
-                                for (i: Int in 1 until tr.size) {
-                                    val td: Elements = tr[i].getElementsByTag("td")
+                                for (i: Int in 1 until transactionRows.size) {
+                                    val td: Elements = transactionRows[i].getElementsByTag("td")
                                     if (td.size != 3) continue
 
                                     var time: Date? = null
                                     try {
                                         time = df.parse(td[0].ownText())
-                                    } catch (e: ParseException) {}
+                                    } catch (e: ParseException) {
+                                    }
 
                                     val desc: String = td[1].ownText()
 
@@ -89,21 +97,18 @@ class AccountViewModel(application: Application) : AndroidViewModel(application)
                                         .replaceFirst(",", ".")
                                         .toDoubleOrNull()
 
-                                    newHistory.add(Transaction(time, desc, amount))
+                                    transactions.add(Transaction(time, desc, amount))
                                 }
-                            } else {}
-
+                            }
                         } else { // Missing data
                             error.send(getApplication<Application>().getString(R.string.err_nodata))
                         }
                     }
+            } catch (e: Exception) {
+                error.send(e.localizedMessage ?: "unknown exception")
             }
-            newHistory.reverse()
-            history.postValue(newHistory)
         }
-        catch (e: Exception) {
-            error.send(e.localizedMessage ?: "unknown exception")
-        }
+        transactions.reverse()
+        return transactions
     }
-
 }
