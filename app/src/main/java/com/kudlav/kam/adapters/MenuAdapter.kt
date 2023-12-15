@@ -58,7 +58,7 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
         private val binding = ItemMenuBinding.bind(view)
         private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(view.context)
         private val lang: String? = preferences.getString("food_lang", "cs")
-        private val priceCategory: String? = preferences.getString("price_category", "cs")
+        private val priceCategory: String? = preferences.getString("price_category", "student")
         private val allergenChosen: Set<String>? = preferences.getStringSet("allergens", null)
         private val allergenNames = view.context.resources.getStringArray(R.array.allergen_entries)
 
