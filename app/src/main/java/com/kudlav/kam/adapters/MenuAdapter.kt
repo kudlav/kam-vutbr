@@ -82,7 +82,7 @@ class MenuAdapter(private val section: FoodType, private val itemList: ArrayList
                         allergens.add(allergenNames[item.toInt()-1])
                     }
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
             }
             binding.tvAllergens.text = allergens.joinToString()
 
