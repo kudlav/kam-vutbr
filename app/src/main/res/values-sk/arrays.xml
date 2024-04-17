@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="price_entries">
+        <item>Študent</item>
+        <item>Zamestnanec</item>
+        <item>Ostatní</item>
+    </string-array>
+
+    <string-array name="lang_entries">
+        <item>Čeština</item>
+        <item>Angličtina</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>Svetlý</item>
+        <item>Tmavý</item>
+        <item>Nastavený šetričom batérie</item>
+        <item>Podľa systému</item>
+    </string-array>
+
+    <string-array name="allergen_entries">
+        <item>Obilniny</item>
+        <item>Kôrovce</item>
+        <item>Vajcia</item>
+        <item>Ryby</item>
+        <item>Arašidy</item>
+        <item>Sójové bôby</item>
+        <item>Mlieko</item>
+        <item>Orechy</item>
+        <item>Zeler</item>
+        <item>Horčica</item>
+        <item>Sezamové semeno</item>
+        <item>Oxid siričitý</item>
+        <item>Vlčí bôb</item>
+        <item>Mäkkýše</item>
+    </string-array>
+
+</resources>

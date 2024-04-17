@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KaM VUT</string>
+    <string name="url_menu"><![CDATA[http://www.kam.vutbr.cz/?p=menu&provoz=]]></string>
+    <string name="restaurant_img">fotka zariadenia</string>
+    <string name="account">Informácie o účte</string>
+    <string name="settings">Nastavenia</string>
+    <string name="menu_err_nothing">Žiadne jedlo v ponuke</string>
+    <string name="title_activity_settings">Nastavenia</string>
+    <string name="title_activity_menu">Ponuka zariadení</string>
+    <string name="title_activity_account">Účet</string>
+    <string name="card_title">Číslo ISIC alebo VUT karty</string>
+    <string name="price_category_title">Zobrazované ceny</string>
+    <string name="foodtype_main">Hlavné jedlá</string>
+    <string name="foodtype_soup">Polievky</string>
+    <string name="foodtype_other">Ostatné</string>
+    <string name="unit_weight">g</string>
+    <string name="food_lang">Jazyk pre názvy pokrmov</string>
+    <string name="settings_category_account">Účet</string>
+    <string name="settings_category_view">Zobrazenie</string>
+    <string name="err_missing_card">Najprv prosím vyplňte číslo karty ISIC alebo VUT.</string>
+    <string name="err_nodata">Chybné dáta</string>
+    <string name="label_ok">OK</string>
+    <string name="account_history">História transakcií</string>
+    <string name="account_balance">Stav konta:</string>
+    <string name="account_balance_unknown">Neznámy</string>
+    <string name="btn_close">Zavrieť</string>
+    <string name="restaurant_closed">Zatvorené</string>
+    <string name="restaurant_interrupt">Prevádzka prerušená</string>
+    <string name="restaurant_unavailable">Ponuka nezverejnená</string>
+    <string name="restaurant_available">Ponuka zverejnená</string>
+    <string name="err_network">Chyba sťahovania dát</string>
+    <string name="ingredients">Zloženie</string>
+    <string name="currency">Kč</string>
+    <string name="theme">Motív</string>
+    <string name="about">O aplikácii</string>
+    <string name="title_activity_about">O aplikácii</string>
+    <string name="version">Verzia: %s</string>
+    <string name="author">Autor</string>
+    <string name="privacy_title">Ochrana súkromia</string>
+    <string name="privacy_content">Číslo karty je uložené v zariadení a prenášané nešifrovane na server www.kam.vutbr.cz. V rámci záloh vášho systému môže byť uložené na servery Google. Aplikácia nezíska informácie o majiteľovi účtu.</string>
+    <string name="favorite">Obľúbené</string>
+    <string name="display_allergens">Zobrazované alergény</string>
+</resources>
