@@ -20,3 +20,4 @@
 # This is generated automatically by the Android Gradle plugin.
 -dontwarn javax.annotation.Nullable
 -dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn javax.annotation.WillClose
