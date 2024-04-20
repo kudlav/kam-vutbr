@@ -2,16 +2,16 @@
 
 **On-line menu and account info of Dining Services of BUT (KaM VUT).**
 
-KaM VUT app brings all necessary info from official Dining services webpage. Current offer, account balance - everything at glance.
+KaM VUT app brings all the necessary info from the official Dining services webpage. Current offer, account balance - everything at a glance.
 
 Features:
-- overview of opened restaurant with published offer
+- overview of opened restaurant with a published offer
 - current offer of all BUT dining facilities
 - food ingredients and weight
 - current balance and transaction history after providing ISIC / BUT card number
 
-App is fully open-source, available at Github: https://github.com/kudlav/kam-vutbr  
-Feel free to send any suggestion into the repository or via contact email.
+The app is fully open-source, available at Github: https://github.com/kudlav/kam-vutbr  
+Please feel free to send any suggestions to the repository or through an email.
 
 Requires Android 4.4 or newer.
 
