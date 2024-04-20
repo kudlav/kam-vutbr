@@ -5,7 +5,7 @@
         <item>Employee</item>
         <item>Other</item>
     </string-array>
-    <string-array name="price_values">
+    <string-array name="price_values" translatable="false">
         <item>student</item>
         <item>employee</item>
         <item>Other</item>
@@ -15,7 +15,7 @@
         <item>Czech</item>
         <item>English</item>
     </string-array>
-    <string-array name="lang_values">
+    <string-array name="lang_values" translatable="false">
         <item>cs</item>
         <item>en</item>
     </string-array>
@@ -26,29 +26,13 @@
         <item>Set by Battery Saver</item>
         <item>System default</item>
     </string-array>
-    <string-array name="theme_values">
+    <string-array name="theme_values" translatable="false">
         <item>MODE_NIGHT_NO</item>
         <item>MODE_NIGHT_YES</item>
         <item>MODE_NIGHT_AUTO_BATTERY</item>
         <item>MODE_NIGHT_FOLLOW_SYSTEM</item>
     </string-array>
 
-    <string-array name="allergen_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-    </string-array>
     <string-array name="allergen_entries">
         <item>Gluten</item>
         <item>Crustaceans</item>
@@ -65,5 +49,22 @@
         <item>Lupin</item>
         <item>Molluscs</item>
     </string-array>
-    <string-array name="allergen_default" />
+    <string-array name="allergen_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+    </string-array>
+
+    <string-array name="allergen_default" translatable="false" />
 </resources>
