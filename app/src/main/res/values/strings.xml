@@ -35,12 +35,12 @@
     <string name="about">About</string>
     <string name="title_activity_about">About</string>
     <string name="version">Version: %s</string>
-    <string name="url_github" translatable="false">https://github.com/kudlav/kam-vutbr</string>
+    <string name="url_github" translatable="false">GitHub\nkudlav/kam-vutbr</string>
     <string name="author">Author</string>
-    <string name="copyright" translatable="false">© 2019-2024 Vladan Kudláč</string>
-    <string name="contact_email" translatable="false">vladankudlac@gmail.com</string>
     <string name="privacy_title">Privacy policy</string>
     <string name="privacy_content">Card number is stored in your device and transmitted to the www.kam.vutbr.cz using unsecured connection. It can be saved to Google servers as a backup of your system. The app does not get account owner information.</string>
     <string name="favorite">Favorite</string>
     <string name="display_allergens">Displayed allergens</string>
+    <string name="setting_translate_link">Translate the app</string>
+    <string name="about_author_kudlav" translatable="false">Vladan Kudláč\nkudlav.github.io</string>
 </resources>

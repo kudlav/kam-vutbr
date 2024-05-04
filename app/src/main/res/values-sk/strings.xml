@@ -41,4 +41,5 @@
     <string name="privacy_content">Číslo karty je uložené v zariadení a prenášané nešifrovane na server www.kam.vutbr.cz. V rámci záloh vášho systému môže byť uložené na servery Google. Aplikácia nezíska informácie o majiteľovi účtu.</string>
     <string name="favorite">Obľúbené</string>
     <string name="display_allergens">Zobrazované alergény</string>
+    <string name="setting_translate_link">Preklad aplikácie</string>
 </resources>
